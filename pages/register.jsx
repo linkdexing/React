@@ -18,16 +18,16 @@ export default function RegisterPage() {
 
   return (
     <div className="container">
-      <div class="card" style={{ width: 500, marginTop: "10rem" }}>
-        <div class="card-body">
-          <form class="form-control-sm" onSubmit={handleSubmit(onSubmit)}>
-            <div class="mb-3">
-              <label for="exampleInputName" class="form-label">
+      <div className="card" style={{ width: 500, marginTop: "6rem" }}>
+        <div className="card-body">
+          <form className="form-control-sm" onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-3">
+              <label for="exampleInputName" className="form-label">
                 Name
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 name="name"
                 {...register("name", { required: true, minLength: 4 })}
               />
@@ -35,13 +35,13 @@ export default function RegisterPage() {
                 <span className="text-danger">Name is too short</span>
               )}
             </div>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">
+            <div className="mb-3">
+              <label for="exampleInputEmail1" className="form-label">
                 Email address
               </label>
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 aria-describedby="emailHelp"
                 {...register("email", {
                   required: true,
@@ -53,13 +53,13 @@ export default function RegisterPage() {
                 <span className="text-danger">Invalid Email format</span>
               )}
             </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">
+            <div className="mb-3">
+              <label for="exampleInputPassword1" className="form-label">
                 Password
               </label>
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 {...register("password", {
                   required: true,
                   pattern: /^.{5,}$/,
@@ -72,7 +72,7 @@ export default function RegisterPage() {
                 </span>
               )}
             </div>
-            <button type="submit" class="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100">
               Register
             </button>
             <div className="mt-2">
