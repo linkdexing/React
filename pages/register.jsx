@@ -17,32 +17,32 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className='container'>
-      <div class='card' style={{ width: 500, marginTop: "10rem" }}>
-        <div class='card-body'>
-          <form class='form-control-sm' onSubmit={handleSubmit(onSubmit)}>
-            <div class='mb-3'>
-              <label for='exampleInputName' class='form-label'>
+    <div className="container">
+      <div class="card" style={{ width: 500, marginTop: "10rem" }}>
+        <div class="card-body">
+          <form class="form-control-sm" onSubmit={handleSubmit(onSubmit)}>
+            <div class="mb-3">
+              <label for="exampleInputName" class="form-label">
                 Name
               </label>
               <input
-                type='text'
-                class='form-control'
-                name='name'
+                type="text"
+                class="form-control"
+                name="name"
                 {...register("name", { required: true, minLength: 4 })}
               />
               {errors?.name && (
-                <span className='text-danger'>Name is too short</span>
+                <span className="text-danger">Name is too short</span>
               )}
             </div>
-            <div class='mb-3'>
-              <label for='exampleInputEmail1' class='form-label'>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">
                 Email address
               </label>
               <input
-                type='email'
-                class='form-control'
-                aria-describedby='emailHelp'
+                type="email"
+                class="form-control"
+                aria-describedby="emailHelp"
                 {...register("email", {
                   required: true,
                   pattern:
@@ -50,34 +50,33 @@ export default function RegisterPage() {
                 })}
               />
               {errors?.email && (
-                <span className='text-danger'>Invalid Email format</span>
+                <span className="text-danger">Invalid Email format</span>
               )}
             </div>
-            <div class='mb-3'>
-              <label for='exampleInputPassword1' class='form-label'>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">
                 Password
               </label>
               <input
-                type='password'
-                class='form-control'
+                type="password"
+                class="form-control"
                 {...register("password", {
                   required: true,
                   pattern: /^.{5,}$/,
                 })}
-                aria-describedby='passwordlHelp'
+                aria-describedby="passwordlHelp"
               />
               {errors?.password && (
-                <span className='text-danger'>
+                <span className="text-danger">
                   Password must be atleast 5 characters long
                 </span>
               )}
             </div>
-
-            <button type='submit' class='btn btn-primary w-100'>
+            <button type="submit" class="btn btn-primary w-100">
               Register
             </button>
-            <div className='mt-2'>
-              <Link href='/login'>
+            <div className="mt-2">
+              <Link href="/login">
                 <a>Already registered? Login</a>
               </Link>
             </div>
