@@ -7,18 +7,18 @@ export default function Header() {
       className="navbar navbar-expand-lg navbar-light bg-light"
       style={{ minHeight: 80, fontSize: 20 }}
     >
-      <div>
-        <a
-          className="container navbar-brand d-flex"
-          href="/"
-          style={{ fontSize: "2rem" }}
-        >
-          Linkdexing.com
-        </a>
-      </div>
-      <div className="container justify-content-end">
+      <div className="container">
+        <span>
+          <a
+            className="container navbar-brand d-flex"
+            href="/"
+            style={{ fontSize: "2rem" }}
+          >
+            Linkdexing.com
+          </a>
+        </span>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler justify-content-end"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarTogglerDemo01"
