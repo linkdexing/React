@@ -1,3 +1,5 @@
+import Head from "next/head";
+
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/global.css";
 import Footer from "../components/footer";
@@ -5,11 +7,19 @@ import Header from "../components/header";
 
 export default function App({ Component, pageProps }) {
   return (
-    <div>
-      <Header />
-      {/* <Login /> */}
-      <Component {...pageProps} />
-      <Footer />
-    </div>
+    <>
+      <Head>
+        <script
+          src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js'
+          integrity='sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4'
+          crossorigin='anonymous'
+        ></script>
+      </Head>
+      <div>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </div>
+    </>
   );
 }
