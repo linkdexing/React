@@ -1,14 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import Footer from "../components/footer";
-import Header from "../components/header";
 
 export default function login() {
   return (
-    <div>
-      <Header />
+    <div class="row">
       <div
-        class="card"
+        class="card col-8"
         style={{ width: 500, height: 300, marginTop: 130, marginLeft: 20 }}
       >
         <div class="card-body">
@@ -55,7 +52,6 @@ export default function login() {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

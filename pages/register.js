@@ -5,7 +5,6 @@ import Header from "../components/header";
 export default function register() {
   return (
     <div>
-      <Header />
       <div
         class="card"
         style={{ width: 500, height: 370, marginTop: 100, marginLeft: 20 }}
@@ -53,7 +52,6 @@ export default function register() {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
