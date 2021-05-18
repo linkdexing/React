@@ -21,7 +21,7 @@ export default function login(props) {
       props.setUser(res.data);
       router.push("/dashboard");
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 
