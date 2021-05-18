@@ -1,3 +1,9 @@
-export default function Home() {
-  return <div></div>;
+import PublicHOC from "../components/publicHOC";
+
+export default function Home(props) {
+  return (
+    <PublicHOC user={props.user}>
+      <div></div>
+    </PublicHOC>
+  );
 }
