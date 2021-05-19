@@ -22,7 +22,7 @@ export default function DashboardPage(props) {
         <div className="row">
           <div
             className="card col-8"
-            style={{ width: 500, marginTop: 130, marginLeft: 20 }}
+            style={{ width: 700, marginTop: 130, marginLeft: 20 }}
           >
             <div className="card-body">
               <form
@@ -74,6 +74,45 @@ export default function DashboardPage(props) {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+          <div className="col-4 container">
+            <div className="justify-content-center">
+              <h1>Your Account</h1>
+              <ul>
+                <li>
+                  <div>
+                    <Link href="/">
+                      <a>Add Links</a>
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <Link href="/history">
+                      <a>History of orders</a>
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <Link href="/">
+                      <a className="list-group-item list-group-item">
+                        Edit your account
+                      </a>
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <Link href="/">
+                      <a className="list-group-item list-group-item">
+                        Change password
+                      </a>
+                    </Link>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
