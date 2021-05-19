@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { privateApi } from "../api";
-import { authUrl } from "../api/endpoints";
+import { authUrl, orderUrl } from "../api/endpoints";
 import PrivateHOC from "../components/PrivateHOC";
 
 export default function DashboardPage(props) {
@@ -12,7 +12,7 @@ export default function DashboardPage(props) {
   } = useForm();
 
   const onSubmit = async (values) => {
-    const res = await privateApi.post(`${authUrl}/dashboard`, values);
+    const res = await privateApi.post(`${orderUrl}`, values);
     console.log(res);
   };
 
@@ -36,7 +36,7 @@ export default function DashboardPage(props) {
                         Dripfeed (Number of days)
                       </span>
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
                         id="basic-url"
                         aria-describedby="basic-addon3"
