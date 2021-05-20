@@ -97,18 +97,14 @@ export default function DashboardPage(props) {
                 <li>
                   <div>
                     <Link href="/">
-                      <a className="list-group-item list-group-item">
-                        Edit your account
-                      </a>
+                      <a>Edit your account</a>
                     </Link>
                   </div>
                 </li>
                 <li>
                   <div>
                     <Link href="/">
-                      <a className="list-group-item list-group-item">
-                        Change password
-                      </a>
+                      <a>Change password</a>
                     </Link>
                   </div>
                 </li>
