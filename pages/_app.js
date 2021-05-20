@@ -7,8 +7,11 @@ import Header from "../components/header";
 import { privateApi } from "../api";
 import { authUrl } from "../api/endpoints";
 
+import "react-toastify/dist/ReactToastify.css";
+
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/global.css";
+import { ToastContainer } from "react-toastify";
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState();
@@ -51,6 +54,7 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
         <Footer />
       </div>
+      <ToastContainer />
     </>
   );
 }

@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { privateApi } from "../api";
-import { authUrl, orderUrl } from "../api/endpoints";
+import { orderUrl } from "../api/endpoints";
 import PrivateHOC from "../components/PrivateHOC";
 
 export default function DashboardPage(props) {
@@ -12,55 +12,59 @@ export default function DashboardPage(props) {
   } = useForm();
 
   const onSubmit = async (values) => {
-    const res = await privateApi.post(`${orderUrl}`, values);
-    console.log(res);
+    try {
+      await privateApi.post(`${orderUrl}`, values);
+      toast.success("Order created");
+    } catch (err) {
+      toast.error("Unable to create order");
+    }
   };
 
   return (
     <PrivateHOC user={props.user}>
-      <div className="container">
-        <div className="row">
+      <div className='container'>
+        <div className='row'>
           <div
-            className="card col-8"
+            className='card col-8'
             style={{ width: 500, marginTop: 130, marginLeft: 20 }}
           >
-            <div className="card-body">
+            <div className='card-body'>
               <form
-                className="form-control-sm"
+                className='form-control-sm'
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div className="mb-3">
-                  <div class="input-group mb-3">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon3">
+                <div className='mb-3'>
+                  <div class='input-group mb-3'>
+                    <div class='input-group mb-3'>
+                      <span class='input-group-text' id='basic-addon3'>
                         Dripfeed (Number of days)
                       </span>
                       <input
-                        type="number"
-                        class="form-control"
-                        id="basic-url"
-                        aria-describedby="basic-addon3"
-                        placeholder="        Range of 1 to 30"
+                        type='number'
+                        class='form-control'
+                        id='basic-url'
+                        aria-describedby='basic-addon3'
+                        placeholder='        Range of 1 to 30'
                         {...register("dripfeed", {
                           required: true,
-                          pattern: /^(0?[1-9]|[12][0-9]|3[01])$/,
+                          max: 30,
                         })}
                       />
 
                       {errors?.dripfeed && (
-                        <span className="text-danger">
+                        <span className='text-danger'>
                           Must be between 1 and 30
                         </span>
                       )}
                     </div>
                   </div>
                 </div>
-                <div className="mb-3">
-                  <div class="input-group">
-                    <span class="input-group-text">Paste Links</span>
+                <div className='mb-3'>
+                  <div class='input-group'>
+                    <span class='input-group-text'>Paste Links</span>
                     <textarea
-                      class="form-control"
-                      aria-label="With textarea"
+                      class='form-control'
+                      aria-label='With textarea'
                       {...register("links", {
                         required: true,
                       })}
@@ -69,7 +73,7 @@ export default function DashboardPage(props) {
                 </div>
 
                 <div>
-                  <button type="submit" className="btn btn-primary w-100">
+                  <button type='submit' className='btn btn-primary w-100'>
                     Add Links
                   </button>
                 </div>
