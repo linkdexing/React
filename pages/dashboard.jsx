@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { privateApi } from "../api";
 import { orderUrl } from "../api/endpoints";
 import PrivateHOC from "../components/PrivateHOC";
+import Sidebar from "../components/Sidebar";
 
 export default function DashboardPage(props) {
   const {
@@ -50,6 +51,7 @@ export default function DashboardPage(props) {
                           {...register("dripfeed", {
                             required: true,
                             max: 30,
+                            min: 1,
                           })}
                         />
 
@@ -83,41 +85,7 @@ export default function DashboardPage(props) {
               </div>
             </div>
           </div>
-          <div className='d-flex col-5 align-items-center justify-content-end'>
-            <div>
-              <h1>Your Account</h1>
-              <ul>
-                <li>
-                  <div>
-                    <Link href='/'>
-                      <a>Add Links</a>
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <Link href='/history'>
-                      <a>History of orders</a>
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <Link href='/'>
-                      <a>Edit your account</a>
-                    </Link>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <Link href='/'>
-                      <a>Change password</a>
-                    </Link>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Sidebar />
         </div>
       </div>
     </PrivateHOC>
