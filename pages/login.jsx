@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { publicApi } from "../api";
 import { authUrl } from "../api/endpoints";
 import PublicHOC from "../components/publicHOC";
@@ -21,7 +22,7 @@ export default function login(props) {
       props.setUser(res.data);
       router.push("/dashboard");
     } catch (err) {
-      console.log(err.message);
+      toast.error(err.response.data.message);
     }
   };
 
