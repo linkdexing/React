@@ -43,6 +43,7 @@ export default function HistoryPage(props) {
               <thead>
                 <tr>
                   <th scope='col'>Dripfeed</th>
+                  <th scope='col'># of links</th>
                   <th scope='col'>Links</th>
                   <th scope='col'>Created at</th>
                   <th scope='col'>Progress</th>
@@ -52,6 +53,7 @@ export default function HistoryPage(props) {
                 {orders.map((order) => (
                   <tr className={order.isProcessed ? "table-success" : null}>
                     <td>{order.dripfeed}</td>
+                    <td>{order.links.split("\n").length}</td>
                     <td>{order.links}</td>
                     <td>{order.createdAt}</td>
                     <td>{order.isProcessed ? "Done" : "Pending"}</td>
