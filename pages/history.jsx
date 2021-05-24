@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { privateApi } from "../api";
 import { orderUrl } from "../api/endpoints";
@@ -20,6 +21,8 @@ export default function HistoryPage(props) {
               .isBefore(Date.now())
           ? true
           : false;
+
+        order.links = order.links.split("\n");
 
         order.createdAt = moment(order.createdAt).format("DD-MM-yy");
 
@@ -53,8 +56,16 @@ export default function HistoryPage(props) {
                 {orders.map((order) => (
                   <tr className={order.isProcessed ? "table-success" : null}>
                     <td>{order.dripfeed}</td>
-                    <td>{order.links.split("\n").length}</td>
-                    <td>{order.links}</td>
+                    <td>{order.links.length}</td>
+                    <td>
+                      {order.links.length > 0 ? (
+                        <Link href={`/order/${order._id}`}>
+                          <a target='_blank'>View links</a>
+                        </Link>
+                      ) : (
+                        "None"
+                      )}
+                    </td>
                     <td>{order.createdAt}</td>
                     <td>{order.isProcessed ? "Done" : "Pending"}</td>
                   </tr>
