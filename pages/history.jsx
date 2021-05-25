@@ -37,19 +37,19 @@ export default function HistoryPage(props) {
 
   return (
     <PrivateHOC user={props.user}>
-      <div className='container mt-4'>
-        <div className='row'>
-          <div className='col-7'>
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col-7">
             <h2>Order History</h2>
 
-            <table className='table table-hover table-responsive'>
+            <table className="table table-hover table-responsive">
               <thead>
                 <tr>
-                  <th scope='col'>Dripfeed</th>
-                  <th scope='col'># of links</th>
-                  <th scope='col'>Links</th>
-                  <th scope='col'>Created at</th>
-                  <th scope='col'>Progress</th>
+                  <th scope="col">Dripfeed</th>
+                  <th scope="col"># of links</th>
+                  <th scope="col">Links</th>
+                  <th scope="col">Created at</th>
+                  <th scope="col">Progress</th>
                 </tr>
               </thead>
               <tbody style={{ whiteSpace: "pre-wrap" }}>
@@ -60,7 +60,7 @@ export default function HistoryPage(props) {
                     <td>
                       {order.links.length > 0 ? (
                         <Link href={`/order/${order._id}`}>
-                          <a target='_blank'>View links</a>
+                          <a target="_blank">View links</a>
                         </Link>
                       ) : (
                         "None"
