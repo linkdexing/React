@@ -50,8 +50,12 @@ export default function App({ Component, pageProps }) {
         ></script>
       </Head>
       <div>
-        <Header user={user} />
-        <Component {...pageProps} />
+        <div
+          style={{ height: "90vh", overflow: "scroll", overflowX: "hidden" }}
+        >
+          <Header user={user} />
+          <Component {...pageProps} />
+        </div>
         <Footer />
       </div>
       <ToastContainer />
