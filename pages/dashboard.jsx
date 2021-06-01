@@ -16,7 +16,7 @@ export default function DashboardPage(props) {
   const onSubmit = async (values) => {
     try {
       await privateApi.post(`${orderUrl}`, values);
-      toast.success("Order created");
+      toast.success("Links Added");
       reset();
     } catch (err) {
       toast.error("Unable to create order");
@@ -37,6 +37,55 @@ export default function DashboardPage(props) {
                   className="form-control-sm"
                   onSubmit={handleSubmit(onSubmit)}
                 >
+                  <script>{`$(".dropdown-toggle").dropdown()`}</script>
+                  <div class="btn-group dropright">
+                    <button
+                      type="button"
+                      class="btn btn-secondary dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      Dropright
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a class="dropdown-item" href="#">
+                        Action
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Another action
+                      </a>
+                      <a class="dropdown-item" href="#">
+                        Something else here
+                      </a>
+                    </div>
+                  </div>
+
+                  <div style={{ fontFamily: "Verdana" }}>
+                    Links in the box below should be added one by one :-
+                    <div style={{ fontFamily: "Arial" }}>
+                      <ul>
+                        http://linkdexing_one.com <br />
+                        http://linkdexing_two.com <br />
+                        https://linkdexing_three.com
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <div className="input-group">
+                      <span className="input-group-text">Paste Links</span>
+                      <textarea
+                        className="form-control"
+                        aria-label="With textarea"
+                        {...register("links", {
+                          required: true,
+                        })}
+                      ></textarea>
+                    </div>
+                  </div>
                   <div className="mb-3">
                     <div className="input-group mb-3">
                       <div className="input-group mb-3">
@@ -64,19 +113,6 @@ export default function DashboardPage(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="mb-3">
-                    <div className="input-group">
-                      <span className="input-group-text">Paste Links</span>
-                      <textarea
-                        className="form-control"
-                        aria-label="With textarea"
-                        {...register("links", {
-                          required: true,
-                        })}
-                      ></textarea>
-                    </div>
-                  </div>
-
                   <div>
                     <button type="submit" className="btn btn-primary btn-lg">
                       Add Links
