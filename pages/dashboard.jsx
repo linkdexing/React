@@ -25,79 +25,70 @@ export default function DashboardPage(props) {
 
   return (
     <PrivateHOC user={props.user}>
-      <div className="container" style={{ minHeight: "80vh" }}>
-        <div className="row">
-          <div className="col-7">
+      <div className='container' style={{ minHeight: "80vh" }}>
+        <div className='row'>
+          <div className='col-7'>
             <div
-              className="card w-100 my-4"
+              className='card w-100 my-4'
               style={{ width: 500, marginLeft: 20 }}
             >
-              <div className="card-body">
+              <div className='card-body'>
                 <form
-                  className="form-control-sm"
+                  className='form-control-sm'
                   onSubmit={handleSubmit(onSubmit)}
                 >
-                  <script>{`$(".dropdown-toggle").dropdown()`}</script>
-                  <div class="btn-group dropright">
-                    <button
-                      type="button"
-                      class="btn btn-secondary dropdown-toggle"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Dropright
-                    </button>
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton"
-                    >
-                      <a class="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Something else here
-                      </a>
+                  <div className='accordion mb-3' id='accordionExample'>
+                    <div className='accordion-item'>
+                      <h2 className='accordion-header' id='headingOne'>
+                        <button
+                          className='accordion-button'
+                          type='button'
+                          data-bs-toggle='collapse'
+                          data-bs-target='#collapseOne'
+                          aria-expanded='true'
+                          aria-controls='collapseOne'
+                        >
+                          Instructions
+                        </button>
+                      </h2>
+                      <div
+                        id='collapseOne'
+                        className='accordion-collapse collapse show'
+                        aria-labelledby='headingOne'
+                        data-bs-parent='#accordionExample'
+                      >
+                        <div class='accordion-body'>
+                          Links in the file as well as in the box below should
+                          be added one by one. http://linki1.com
+                          http://linki2.com https://linki3.com
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  <div style={{ fontFamily: "Verdana" }}>
-                    Links in the box below should be added one by one :-
-                    <div style={{ fontFamily: "Arial" }}>
-                      <ul>
-                        http://linkdexing_one.com <br />
-                        http://linkdexing_two.com <br />
-                        https://linkdexing_three.com
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <div className="input-group">
-                      <span className="input-group-text">Paste Links</span>
+                  <div className='mb-3'>
+                    <div className='input-group'>
+                      <span className='input-group-text'>Paste Links</span>
                       <textarea
-                        className="form-control"
-                        aria-label="With textarea"
+                        className='form-control'
+                        aria-label='With textarea'
                         {...register("links", {
                           required: true,
                         })}
                       ></textarea>
                     </div>
                   </div>
-                  <div className="mb-3">
-                    <div className="input-group mb-3">
-                      <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon3">
+                  <div className='mb-3'>
+                    <div className='input-group mb-3'>
+                      <div className='input-group mb-3'>
+                        <span className='input-group-text' id='basic-addon3'>
                           Dripfeed (Number of days)
                         </span>
                         <input
-                          type="number"
-                          className="form-control"
-                          id="basic-url"
-                          aria-describedby="basic-addon3"
-                          placeholder="        Range of 1 to 30"
+                          type='number'
+                          className='form-control'
+                          id='basic-url'
+                          aria-describedby='basic-addon3'
+                          placeholder='        Range of 1 to 30'
                           {...register("dripfeed", {
                             required: true,
                             max: 30,
@@ -106,7 +97,7 @@ export default function DashboardPage(props) {
                         />
 
                         {errors?.dripfeed && (
-                          <span className="text-danger">
+                          <span className='text-danger'>
                             Must be between 1 and 30
                           </span>
                         )}
@@ -114,7 +105,7 @@ export default function DashboardPage(props) {
                     </div>
                   </div>
                   <div>
-                    <button type="submit" className="btn btn-primary btn-lg">
+                    <button type='submit' className='btn btn-primary btn-lg'>
                       Add Links
                     </button>
                   </div>
