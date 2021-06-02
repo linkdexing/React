@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicApi } from "../api";
@@ -15,6 +16,27 @@ export default function login(props) {
     formState: { errors },
   } = useForm();
 
+  const handleLoaded = (_) => {
+    window.grecaptcha.ready((_) => {
+      window.grecaptcha
+        .execute("6Lccjv8aAAAAAL8OAwhMqdtdCbxIQYjTsTllxeqP", {
+          action: "homepage",
+        })
+        .then((token) => {
+          // ...
+        });
+    });
+  };
+
+  useEffect(() => {
+    // Add reCaptcha
+    const script = document.createElement("script");
+    script.src =
+      "https://www.google.com/recaptcha/api.js?render=6Lccjv8aAAAAAL8OAwhMqdtdCbxIQYjTsTllxeqP";
+    script.addEventListener("load", handleLoaded);
+    document.body.appendChild(script);
+  }, []);
+
   const onSubmit = async (values) => {
     try {
       const res = await publicApi.post(`${authUrl}/login`, values);
@@ -28,25 +50,25 @@ export default function login(props) {
 
   return (
     <PublicHOC user={props.user}>
-      <div className="container">
-        <div className="row">
+      <div className='container'>
+        <div className='row'>
           <div
-            className="card col-8"
+            className='card col-8'
             style={{ width: 500, marginTop: 130, marginLeft: 20 }}
           >
-            <div className="card-body">
+            <div className='card-body'>
               <form
-                className="form-control-sm"
+                className='form-control-sm'
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div className="mb-3">
-                  <label htmlFor="exampleInputEmail1" className="form-label">
+                <div className='mb-3'>
+                  <label htmlFor='exampleInputEmail1' className='form-label'>
                     Email address
                   </label>
                   <input
-                    type="email"
-                    className="form-control"
-                    aria-describedby="emailHelp"
+                    type='email'
+                    className='form-control'
+                    aria-describedby='emailHelp'
                     {...register("email", {
                       required: true,
                       pattern:
@@ -54,37 +76,44 @@ export default function login(props) {
                     })}
                   />
                   {errors?.email && (
-                    <span className="text-danger">Incorrect Email.</span>
+                    <span className='text-danger'>Incorrect Email.</span>
                   )}
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="exampleInputPassword1" className="form-label">
+                <div className='mb-3'>
+                  <label htmlFor='exampleInputPassword1' className='form-label'>
                     Password
                   </label>
                   <input
-                    type="password"
-                    className="form-control"
+                    type='password'
+                    className='form-control'
                     {...register("password", {
                       required: true,
                     })}
                   />
                   {errors?.password && (
-                    <span className="text-danger">Incorrect Password.</span>
+                    <span className='text-danger'>Incorrect Password.</span>
                   )}
                 </div>
 
+                <div
+                  className='g-recaptcha'
+                  data-sitekey='6Lccjv8aAAAAAL8OAwhMqdtdCbxIQYjTsTllxeqP'
+                  data-size='invisible'
+                >
+                  hello
+                </div>
+
                 <div>
-                  <Link href="/register">
+                  <Link href='/register'>
                     <a>Forgot Password?</a>
                   </Link>
-                  <button type="submit" className="btn btn-primary w-100">
+                  <button type='submit' className='btn btn-primary w-100'>
                     Login
                   </button>
                 </div>
-                <p></p>
                 <div>
                   <span>Not a member? </span>
-                  <Link href="/register">
+                  <Link href='/register'>
                     <a>Register Now</a>
                   </Link>
                 </div>
