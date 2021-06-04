@@ -63,7 +63,7 @@ export default function RegisterPage(props) {
           <div className="card-body">
             <form className="form-control-sm" onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
-                <label for="exampleInputName" className="form-label">
+                <label htmlFor="exampleInputName" className="form-label">
                   Name
                 </label>
                 <input
@@ -95,7 +95,7 @@ export default function RegisterPage(props) {
                 )}
               </div>
               <div className="mb-3">
-                <label for="exampleInputPassword1" className="form-label">
+                <label htmlFor="exampleInputPassword1" className="form-label">
                   Password
                 </label>
                 <input

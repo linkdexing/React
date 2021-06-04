@@ -27,7 +27,7 @@ export default function DashboardPage(props) {
     <PrivateHOC user={props.user}>
       <div className="container" style={{ minHeight: "80vh" }}>
         <div className="row">
-          <div className="col-7">
+          <div className="col-sm-12 col-md-7">
             <div
               className="card w-100 my-4"
               style={{ width: 500, marginLeft: 20 }}

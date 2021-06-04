@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Sidebar = () => {
   return (
-    <div className="d-flex col-5 align-items-center justify-content-end">
+    <div className="d-flex col-sm-12 col-md-5  align-items-center justify-content-end">
       <div>
         <h1>Your Account</h1>
         <ul>
