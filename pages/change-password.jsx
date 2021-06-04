@@ -30,45 +30,45 @@ const ChangePasswordPage = (props) => {
 
   return (
     <PrivateHOC user={props.user}>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-7'>
-            <div className='mt-4 card p-3'>
+      <div className="container">
+        <div className="row">
+          <div className="col-7">
+            <div className="mt-4 card p-3">
               <form
-                className='form-control-sm'
+                className="form-control-sm"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div className='mb-3'>
-                  <div className='mb-3'>
-                    <label for='oldPassword' className='form-label'>
+                <div className="mb-3">
+                  <div className="mb-3">
+                    <label htmlFor="oldPassword" className="form-label">
                       Old Password
                     </label>
                     <input
-                      type='password'
-                      className='form-control'
-                      id='oldPassword'
-                      aria-describedby='old password'
+                      type="password"
+                      className="form-control"
+                      id="oldPassword"
+                      aria-describedby="old password"
                       {...register("oldPassword", {
                         required: true,
                       })}
                     />
 
                     {errors?.oldPassword && (
-                      <span className='text-danger'>
+                      <span className="text-danger">
                         Old password is required
                       </span>
                     )}
                   </div>
                 </div>
-                <div className='mb-3'>
-                  <label for='newPassword' className='form-label'>
+                <div className="mb-3">
+                  <label for="newPassword" className="form-label">
                     New Password
                   </label>
                   <input
-                    type='password'
-                    className='form-control'
-                    id='newPassword'
-                    aria-describedby='new password'
+                    type="password"
+                    className="form-control"
+                    id="newPassword"
+                    aria-describedby="new password"
                     {...register("newPassword", {
                       required: "New password is required",
                       pattern: {
@@ -79,21 +79,21 @@ const ChangePasswordPage = (props) => {
                   />
 
                   {errors?.newPassword && (
-                    <span className='text-danger'>
+                    <span className="text-danger">
                       {errors.newPassword.message}
                     </span>
                   )}
                 </div>
 
-                <div className='mb-3'>
-                  <label for='newPasswordConfirm' className='form-label'>
+                <div className="mb-3">
+                  <label for="newPasswordConfirm" className="form-label">
                     Confirm New Password
                   </label>
                   <input
-                    type='password'
-                    className='form-control'
-                    id='newPasswordConfirm'
-                    aria-describedby='confirm new password'
+                    type="password"
+                    className="form-control"
+                    id="newPasswordConfirm"
+                    aria-describedby="confirm new password"
                     {...register("newPasswordConfirm", {
                       required: "Confirm New password is required",
                       validate: (value) =>
@@ -103,14 +103,14 @@ const ChangePasswordPage = (props) => {
                   />
 
                   {errors?.newPasswordConfirm && (
-                    <span className='text-danger'>
+                    <span className="text-danger">
                       {errors.newPasswordConfirm.message}
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <button type='submit' className='btn btn-primary btn-lg'>
+                  <button type="submit" className="btn btn-primary btn-lg">
                     Change Password
                   </button>
                 </div>
