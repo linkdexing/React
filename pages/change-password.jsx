@@ -32,8 +32,9 @@ const ChangePasswordPage = (props) => {
     <PrivateHOC user={props.user}>
       <div className="container">
         <div className="row">
-          <div className="col-7">
-            <div className="mt-4 card p-3">
+          <div className="col-sm-12 col-md-7 mt-4">
+            <h2>Change Password</h2>
+            <div className=" card p-3">
               <form
                 className="form-control-sm"
                 onSubmit={handleSubmit(onSubmit)}
