@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/global.css";
 import { ToastContainer } from "react-toastify";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState();
@@ -49,15 +50,21 @@ export default function App({ Component, pageProps }) {
           crossOrigin='anonymous'
         ></script>
       </Head>
-      <div>
-        <div
-          style={{ height: "90vh", overflow: "scroll", overflowX: "hidden" }}
-        >
-          <Header user={user} setUser={setUser} />
-          <Component {...pageProps} />
+
+      <GoogleReCaptchaProvider
+        reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+      >
+        <div>
+          <div
+            style={{ height: "90vh", overflow: "scroll", overflowX: "hidden" }}
+          >
+            <Header user={user} setUser={setUser} />
+            <Component {...pageProps} />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </GoogleReCaptchaProvider>
+
       <ToastContainer />
     </>
   );

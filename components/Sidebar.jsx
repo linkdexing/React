@@ -2,34 +2,28 @@ import Link from "next/link";
 
 const Sidebar = () => {
   return (
-    <div className='d-flex col-5 align-items-center justify-content-end'>
+    <div className="d-flex col-5 align-items-center justify-content-end">
       <div>
         <h1>Your Account</h1>
         <ul>
           <li>
             <div>
-              <Link href='/'>
+              <Link href="/">
                 <a>Add Links</a>
               </Link>
             </div>
           </li>
           <li>
             <div>
-              <Link href='/history'>
-                <a>History of orders</a>
+              <Link href="/history">
+                <a>Links Archive</a>
               </Link>
             </div>
           </li>
+
           <li>
             <div>
-              <Link href='/'>
-                <a>Edit your account</a>
-              </Link>
-            </div>
-          </li>
-          <li>
-            <div>
-              <Link href='/change-password'>
+              <Link href="/change-password">
                 <a>Change password</a>
               </Link>
             </div>

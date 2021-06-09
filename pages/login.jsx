@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback, useEffect, useState } from "react";
+import { GoogleReCaptcha, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicApi } from "../api";
-import { authUrl } from "../api/endpoints";
+import { authUrl, captchaUrl } from "../api/endpoints";
 import PublicHOC from "../components/publicHOC";
 
 export default function login(props) {
   const router = useRouter();
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [verified, setVerified] = useState(false);
 
   const {
     register,
@@ -15,8 +19,27 @@ export default function login(props) {
     formState: { errors },
   } = useForm();
 
+  const handleReCaptchaVerify = useCallback(async (token) => {
+    try {
+      const res = await publicApi.post(captchaUrl, { token });
+
+      if (res.data.ok) {
+        setVerified(true);
+      } else {
+        setVerified(false);
+      }
+    } catch (err) {
+      setVerified(false);
+    }
+  }, []);
+
   const onSubmit = async (values) => {
     try {
+      if (!verified) {
+        toast.error("Captcha not verified");
+        return;
+      }
+
       const res = await publicApi.post(`${authUrl}/login`, values);
       localStorage.setItem("linkdexing_token", res.data.token);
       props.setUser(res.data);
@@ -25,6 +48,17 @@ export default function login(props) {
       toast.error(err.response.data.message);
     }
   };
+
+  useEffect(() => {
+    const run = async () => {
+      if (!executeRecaptcha) return;
+      await executeRecaptcha();
+    };
+
+    run();
+  }, [executeRecaptcha]);
+
+  console.log(executeRecaptcha);
 
   return (
     <PublicHOC user={props.user}>
@@ -73,6 +107,8 @@ export default function login(props) {
                   )}
                 </div>
 
+                <GoogleReCaptcha onVerify={handleReCaptchaVerify} />
+
                 <div>
                   <Link href='/forgot-password'>
                     <a>Forgot Password?</a>
@@ -81,7 +117,6 @@ export default function login(props) {
                     Login
                   </button>
                 </div>
-                <p></p>
                 <div>
                   <span>Not a member? </span>
                   <Link href='/register'>

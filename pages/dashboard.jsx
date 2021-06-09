@@ -16,7 +16,7 @@ export default function DashboardPage(props) {
   const onSubmit = async (values) => {
     try {
       await privateApi.post(`${orderUrl}`, values);
-      toast.success("Order created");
+      toast.success("Links Added");
       reset();
     } catch (err) {
       toast.error("Unable to create order");
@@ -37,6 +37,50 @@ export default function DashboardPage(props) {
                   className="form-control-sm"
                   onSubmit={handleSubmit(onSubmit)}
                 >
+                  <div className="accordion mb-3" id="accordionExample">
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id="headingOne">
+                        <button
+                          className="accordion-button"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseOne"
+                          aria-expanded="true"
+                          aria-controls="collapseOne"
+                        >
+                          How to Add Links ?
+                        </button>
+                      </h2>
+                      <div
+                        id="collapseOne"
+                        className="accordion-collapse collapse show"
+                        aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample"
+                      >
+                        <div class="accordion-body">
+                          Links in the box below should be added one by one in a
+                          new line:-
+                          <ul>
+                            http://linkdexing_one.com <br />
+                            http://linkdexing_two.com <br />
+                            https://linkdexing_three.com
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <div className="input-group">
+                      <span className="input-group-text">Paste Links</span>
+                      <textarea
+                        className="form-control"
+                        aria-label="With textarea"
+                        {...register("links", {
+                          required: true,
+                        })}
+                      ></textarea>
+                    </div>
+                  </div>
                   <div className="mb-3">
                     <div className="input-group mb-3">
                       <div className="input-group mb-3">
@@ -64,19 +108,6 @@ export default function DashboardPage(props) {
                       </div>
                     </div>
                   </div>
-                  <div className="mb-3">
-                    <div className="input-group">
-                      <span className="input-group-text">Paste Links</span>
-                      <textarea
-                        className="form-control"
-                        aria-label="With textarea"
-                        {...register("links", {
-                          required: true,
-                        })}
-                      ></textarea>
-                    </div>
-                  </div>
-
                   <div>
                     <button type="submit" className="btn btn-primary btn-lg">
                       Add Links
