@@ -1,14 +1,10 @@
 import React, { useCallback } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export default function Header(props) {
-  const router = useRouter();
-
   const onLogout = () => {
     localStorage.removeItem("linkdexing_token");
-    props.setUser(null);
-    router.replace("/");
+    props.setRefresh(true);
   };
 
   return (

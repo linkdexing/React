@@ -16,7 +16,8 @@ export default function RegisterPage(props) {
   } = useForm();
 
   const onSubmit = async (values) => {
-    await publicApi.post(authUrl, values);
+    const { data } = await publicApi.post(authUrl, values);
+    await publicApi.post(`${authUrl}/send-otp/${data.user._id}`);
     toast.success("Registered successfully");
     router.push("/login");
   };

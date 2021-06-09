@@ -17,6 +17,7 @@ import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -28,18 +29,21 @@ export default function App({ Component, pageProps }) {
         }
       } catch (err) {
         setLoading(false);
+        setUser(null);
       }
     };
-
-    fetchUser();
-  }, []);
+    if (refresh) {
+      fetchUser();
+      setRefresh(false);
+    }
+  }, [refresh]);
 
   if (loading) {
     return <div>Loading....</div>;
   }
 
   pageProps.user = user;
-  pageProps.setUser = setUser;
+  pageProps.setRefresh = setRefresh;
 
   return (
     <>
@@ -58,7 +62,7 @@ export default function App({ Component, pageProps }) {
           <div
             style={{ height: "90vh", overflow: "scroll", overflowX: "hidden" }}
           >
-            <Header user={user} setUser={setUser} />
+            <Header user={user} setRefresh={setRefresh} />
             <Component {...pageProps} />
           </div>
           <Footer />
