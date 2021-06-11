@@ -16,10 +16,14 @@ export default function RegisterPage(props) {
   } = useForm();
 
   const onSubmit = async (values) => {
-    const { data } = await publicApi.post(authUrl, values);
-    await publicApi.post(`${authUrl}/send-otp/${data.user._id}`);
-    toast.success("Registered successfully");
-    router.push("/login");
+    try {
+      const { data } = await publicApi.post(authUrl, values);
+      await publicApi.post(`${authUrl}/send-otp/${data.user._id}`);
+      toast.success("Registered successfully");
+      router.push("/login");
+    } catch (err) {
+      toast.error(err.error || err.response.data.message);
+    }
   };
 
   return (
