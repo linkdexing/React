@@ -65,7 +65,7 @@ export default function HistoryPage(props) {
                       )}
                     </td>
                     <td>{order.createdAt}</td>
-                    <td>{order.isProcessed ? "Done" : "Pending"}</td>
+                    <td>{order.isProcessed ? "Done" : "Processing"}</td>
                   </tr>
                 ))}
               </tbody>

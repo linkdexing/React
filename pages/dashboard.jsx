@@ -58,12 +58,12 @@ export default function DashboardPage(props) {
                         data-bs-parent="#accordionExample"
                       >
                         <div class="accordion-body">
-                          Links in the box below should be added one by one in a
-                          new line:-
+                          Please add links in the box below as per the following
+                          format:-
                           <ul>
-                            http://linkdexing_one.com <br />
-                            http://linkdexing_two.com <br />
-                            https://linkdexing_three.com
+                            http://link1.com <br />
+                            http://link2.com <br />
+                            https://link3.com
                           </ul>
                         </div>
                       </div>

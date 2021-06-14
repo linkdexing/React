@@ -169,7 +169,7 @@ export default function login(props) {
                   <>
                     <div className="mb-3">
                       <label htmlFor="otp" className="form-label">
-                        One-time password
+                        OTP send to your E-mail.
                       </label>
                       <input
                         type="number"
@@ -189,7 +189,7 @@ export default function login(props) {
                       )}
                     </div>
                     <button type="submit" className="btn btn-primary w-100">
-                      Verify
+                      Verify Email
                     </button>
                     <button
                       type="button"
