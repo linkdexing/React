@@ -1,11 +1,18 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const PrivateHOC = ({ user, children }) => {
   const router = useRouter();
 
-  if (!user) {
-    router.replace("/");
-  }
+  useEffect(() => {
+    if (!user) {
+      return router.replace("/");
+    }
+
+    if (!user.verified) {
+      router.replace("/verification");
+    }
+  }, [user]);
 
   return <>{children}</>;
 };
