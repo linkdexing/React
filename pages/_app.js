@@ -19,12 +19,20 @@ export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(true);
 
+  const getUser = ({ user, verified }) => ({ ...user, verified });
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await privateApi.get(`${authUrl}/isAuthenticated`);
         if (res.data.ok) {
-          setUser(res.data.user);
+          setUser(getUser(res.data));
+          setLoading(false);
+        } else {
+          if (res.data.user) {
+            setUser(getUser(res.data));
+          }
+
           setLoading(false);
         }
       } catch (err) {
