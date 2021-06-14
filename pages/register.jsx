@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { publicApi } from "../api";
-import { authUrl } from "../api/endpoints";
+import { authUrl, captchaUrl } from "../api/endpoints";
+import { GoogleReCaptcha, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import PublicHOC from "../components/publicHOC";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { useCallback, useEffect, useState } from "react";
 
 export default function RegisterPage(props) {
   const router = useRouter();
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [verified, setVerified] = useState(false);
 
   const {
     register,
@@ -15,45 +19,71 @@ export default function RegisterPage(props) {
     formState: { errors },
   } = useForm();
 
+  const handleRecaptchaVerify = useCallback(async (token) => {
+    try {
+      const res = await publicApi.post(captchaUrl, { token });
+      if (res.data.ok) {
+        setVerified(true);
+      } else {
+        setVerified(false);
+      }
+    } catch (err) {
+      setVerified(false);
+    }
+  }, []);
+
   const onSubmit = async (values) => {
     try {
-      const { data } = await publicApi.post(authUrl, values);
-      await publicApi.post(`${authUrl}/send-otp/${data.user._id}`);
+      if (!verified) {
+        toast.error("Captcha not Verified");
+        return;
+      }
+      await publicApi.post(authUrl, values);
       toast.success("Registered successfully");
       router.push("/login");
     } catch (err) {
-      toast.error(err.error || err.response.data.message);
+      toast.error(err.response.data.message);
     }
   };
 
+  useEffect(() => {
+    const run = async () => {
+      if (!executeRecaptcha) return;
+      await executeRecaptcha();
+    };
+    run();
+  }, [executeRecaptcha]);
+
+  console.log(executeRecaptcha);
+
   return (
     <PublicHOC user={props.user}>
-      <div className='container'>
-        <div className='card' style={{ width: 500, marginTop: "6rem" }}>
-          <div className='card-body'>
-            <form className='form-control-sm' onSubmit={handleSubmit(onSubmit)}>
-              <div className='mb-3'>
-                <label for='exampleInputName' className='form-label'>
+      <div className="container">
+        <div className="card" style={{ width: 500, marginTop: "6rem" }}>
+          <div className="card-body">
+            <form className="form-control-sm" onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-3">
+                <label htmlFor="exampleInputName" className="form-label">
                   Name
                 </label>
                 <input
-                  type='text'
-                  className='form-control'
-                  name='name'
+                  type="text"
+                  className="form-control"
+                  name="name"
                   {...register("name", { required: true, minLength: 4 })}
                 />
                 {errors?.name && (
-                  <span className='text-danger'>Name is too short</span>
+                  <span className="text-danger">Name is too short</span>
                 )}
               </div>
-              <div className='mb-3'>
-                <label for='exampleInputEmail1' className='form-label'>
+              <div className="mb-3">
+                <label for="exampleInputEmail1" className="form-label">
                   Email address
                 </label>
                 <input
-                  type='email'
-                  className='form-control'
-                  aria-describedby='emailHelp'
+                  type="email"
+                  className="form-control"
+                  aria-describedby="emailHelp"
                   {...register("email", {
                     required: true,
                     pattern:
@@ -61,33 +91,36 @@ export default function RegisterPage(props) {
                   })}
                 />
                 {errors?.email && (
-                  <span className='text-danger'>Invalid Email format</span>
+                  <span className="text-danger">Invalid Email format</span>
                 )}
               </div>
-              <div className='mb-3'>
-                <label for='exampleInputPassword1' className='form-label'>
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
                   Password
                 </label>
                 <input
-                  type='password'
-                  className='form-control'
+                  type="password"
+                  className="form-control"
                   {...register("password", {
                     required: true,
                     pattern: /^.{5,}$/,
                   })}
-                  aria-describedby='passwordlHelp'
+                  aria-describedby="passwordlHelp"
                 />
                 {errors?.password && (
-                  <span className='text-danger'>
+                  <span className="text-danger">
                     Password must be atleast 5 characters long
                   </span>
                 )}
               </div>
-              <button type='submit' className='btn btn-primary w-100'>
+
+              <GoogleReCaptcha onVerify={handleRecaptchaVerify} />
+
+              <button type="submit" className="btn btn-primary w-100">
                 Register
               </button>
-              <div className='mt-2'>
-                <Link href='/login'>
+              <div className="mt-2">
+                <Link href="/login">
                   <a>Already registered? Login</a>
                 </Link>
               </div>
