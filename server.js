@@ -9,7 +9,7 @@ const handle = app.getRequestHandler();
 
 const apiPaths = {
   "/api": {
-    target: "http://localhost:4000",
+    target: process.env.NEXT_PUBLIC_BASE_URL,
     pathRewrite: {
       "^/api": "/api",
     },
