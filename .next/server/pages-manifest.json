@@ -1,0 +1,16 @@
+{
+  "/_app": "pages/_app.js",
+  "/change-password": "pages/change-password.html",
+  "/dashboard": "pages/dashboard.html",
+  "/forgot-password": "pages/forgot-password.html",
+  "/history": "pages/history.html",
+  "/": "pages/index.html",
+  "/login": "pages/login.html",
+  "/order/[orderId]": "pages/order/[orderId].html",
+  "/register": "pages/register.html",
+  "/reset-password": "pages/reset-password.html",
+  "/verification": "pages/verification.html",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}
