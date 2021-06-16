@@ -6,11 +6,11 @@ const PrivateHOC = ({ user, children }) => {
 
   useEffect(() => {
     if (!user) {
-      return router.replace("/");
+      return router.push("/");
     }
 
     if (!user.verified) {
-      router.replace("/verification");
+      router.push("/verification");
     }
   }, [user]);
 

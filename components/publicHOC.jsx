@@ -7,9 +7,9 @@ const PublicHOC = ({ user, children }) => {
   useEffect(() => {
     if (user) {
       if (!user.verified) {
-        router.replace("/verification");
+        router.push("/verification");
       } else {
-        router.replace("/dashboard");
+        router.push("/dashboard");
       }
     }
   }, [user]);

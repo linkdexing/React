@@ -26,7 +26,7 @@ const ResetPasswordPage = () => {
         token,
       });
       toast.success("Password changed successfully. Please login to continue");
-      router.replace("/login");
+      router.push("/login");
     } catch (err) {
       toast.error(err.message || err.response.data.message);
     }
@@ -34,15 +34,15 @@ const ResetPasswordPage = () => {
 
   return (
     <div>
-      <form className='container mt-4' onSubmit={handleSubmit(onSubmit)}>
-        <div className='mb-3'>
-          <label for='newPassword' className='form-label'>
+      <form className="container mt-4" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-3">
+          <label for="newPassword" className="form-label">
             New Password
           </label>
           <input
-            type='password'
-            className='form-control'
-            id='newPassword'
+            type="password"
+            className="form-control"
+            id="newPassword"
             {...register("newPassword", {
               required: "New password is required",
               minLength: {
@@ -52,29 +52,29 @@ const ResetPasswordPage = () => {
             })}
           />
           {errors?.newPassword && (
-            <span className='text-danger'>{errors.newPassword.message}</span>
+            <span className="text-danger">{errors.newPassword.message}</span>
           )}
         </div>
-        <div className='mb-3'>
-          <label for='newPasswordConfirm' className='form-label'>
+        <div className="mb-3">
+          <label for="newPasswordConfirm" className="form-label">
             Confirm New Password
           </label>
           <input
-            type='password'
-            className='form-control'
-            id='newPasswordConfirm'
+            type="password"
+            className="form-control"
+            id="newPasswordConfirm"
             {...register("newPasswordConfirm", {
               validate: (value) =>
                 value === watchNewPassword || "The passwords do not match",
             })}
           />
           {errors?.newPasswordConfirm && (
-            <span className='text-danger'>
+            <span className="text-danger">
               {errors.newPasswordConfirm.message}
             </span>
           )}
         </div>
-        <button type='submit' className='btn btn-primary'>
+        <button type="submit" className="btn btn-primary">
           Reset Password
         </button>
       </form>
