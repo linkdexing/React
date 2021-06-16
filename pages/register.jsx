@@ -77,7 +77,9 @@ export default function RegisterPage(props) {
                   {...register("name", { required: true, minLength: 4 })}
                 />
                 {errors?.name && (
-                  <span className='text-danger'>Name is too short</span>
+                  <span className='text-danger'>
+                    Name should be atleast 5 characters long
+                  </span>
                 )}
               </div>
               <div className='mb-3'>
