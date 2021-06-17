@@ -7,6 +7,7 @@ import { authUrl } from "../api/endpoints";
 const ResetPasswordPage = () => {
   const router = useRouter();
 
+  // extracting query params
   const { id, token } = router.query;
 
   const {
@@ -16,19 +17,26 @@ const ResetPasswordPage = () => {
     formState: { errors },
   } = useForm();
 
+  // Constantly watches password
   const watchNewPassword = watch("newPassword");
 
-  const onSubmit = async (values) => {
+  // values = newPasssword
+  const onSubmit = async ({ newPassword }) => {
     try {
+      // reset-password
       await publicApi.post(`${authUrl}/reset-password`, {
-        ...values,
+        newPassword,
         id,
         token,
       });
-      toast.success("Password changed successfully. Please login to continue");
+      toast.success("Password changed successfully, Please login to continue");
       router.push("/login");
     } catch (err) {
-      toast.error(err.message || err.response.data.message);
+      toast.error(
+        err.message ||
+          err.response?.data.message ||
+          "Something went wrong, Please try again later."
+      );
     }
   };
 
@@ -47,7 +55,7 @@ const ResetPasswordPage = () => {
               required: "New password is required",
               minLength: {
                 value: 5,
-                message: "Your password is too short",
+                message: "Password should be atleast 5 characters long",
               },
             })}
           />

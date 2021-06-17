@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { publicApi } from "../api";
 import { authUrl } from "../api/endpoints";
 
+// At login page, forgot-passsword
 const ForgotPasswordPage = () => {
   const {
     register,
@@ -11,26 +12,32 @@ const ForgotPasswordPage = () => {
     formState: { errors },
   } = useForm();
 
+  // values = {email}
   const onSubmit = async (values) => {
     try {
+      // forgot-password
       await publicApi.post(`${authUrl}/forgot-password`, values);
       toast.success("Password reset email sent");
     } catch (err) {
-      toast.error(err.message || err.response.data.message);
+      toast.error(
+        err.message ||
+          err.response?.data.message ||
+          "Something went wrong, Please try again later."
+      );
     }
   };
 
   return (
     <div>
-      <form className='container mt-4' onSubmit={handleSubmit(onSubmit)}>
-        <div className='mb-3'>
-          <label for='email' className='form-label'>
+      <form className="container mt-4" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-3">
+          <label for="email" className="form-label">
             Email Address
           </label>
           <input
-            type='email'
-            className='form-control'
-            id='email'
+            type="email"
+            className="form-control"
+            id="email"
             {...register("email", {
               required: "Email address is required",
               pattern: {
@@ -41,11 +48,11 @@ const ForgotPasswordPage = () => {
             })}
           />
           {errors?.email && (
-            <span className='text-danger'>{errors.email.message}</span>
+            <span className="text-danger">{errors.email.message}</span>
           )}
         </div>
 
-        <button type='submit' className='btn btn-primary'>
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>

@@ -1,9 +1,16 @@
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import PublicHOC from "../components/publicHOC";
 
-export default function Home(props) {
+// Home page redirecting to login
+export default function Home({ user }) {
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/login");
+  }, []);
   return (
-    <PublicHOC user={props.user}>
-      <div></div>
+    <PublicHOC user={user}>
+      <div>Redirecting...</div>
     </PublicHOC>
   );
 }

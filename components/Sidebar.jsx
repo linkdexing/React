@@ -1,33 +1,29 @@
+import { Children } from "react";
 import Link from "next/link";
+
+const links = [
+  { link: "/", label: "Add Links" },
+  { link: "/links-archive", label: "Links Archive" },
+  { link: "/change-password", label: "Change Password" },
+];
 
 const Sidebar = () => {
   return (
-    <div className="d-flex col-sm-12 col-md-3  align-items-center justify-content-end">
+    <div className="d-flex col-sm-12 col-md-3 mt-4 justify-content-end">
       <div>
-        <h1>Your Account</h1>
-        <ul>
-          <li>
-            <div>
-              <Link href="/">
-                <a>Add Links</a>
-              </Link>
-            </div>
-          </li>
-          <li>
-            <div>
-              <Link href="/history">
-                <a>Links Archive</a>
-              </Link>
-            </div>
-          </li>
-
-          <li>
-            <div>
-              <Link href="/change-password">
-                <a>Change password</a>
-              </Link>
-            </div>
-          </li>
+        <h1 className="display-6 lead">Your Account</h1>
+        <ul style={{ fontSize: "1.3rem" }}>
+          {Children.toArray(
+            links.map(({ link, label }) => {
+              return (
+                <li>
+                  <Link href={link}>
+                    <a>{label}</a>
+                  </Link>
+                </li>
+              );
+            })
+          )}
         </ul>
       </div>
     </div>

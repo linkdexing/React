@@ -12,7 +12,7 @@ export const privateApi = axios.create({
 
 privateApi.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("linkdexing_token");
+    const token = localStorage.getItem("jxidwrtdy");
     if (token) {
       config.headers.authorization = `Bearer ${token}`;
     }

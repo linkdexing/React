@@ -7,6 +7,7 @@ import { authUrl } from "../api/endpoints";
 import PrivateHOC from "../components/PrivateHOC";
 
 const VerificationPage = ({ user, setRefresh }) => {
+  // Resend OTP
   const [disableResend, setDisableResend] = useState(false);
   const router = useRouter();
 
@@ -16,10 +17,11 @@ const VerificationPage = ({ user, setRefresh }) => {
     formState: { errors },
   } = useForm();
 
-  const onOtpSubmit = async (values) => {
+  const onOtpSubmit = async ({ otp }) => {
     try {
+      // Verify OTP
       await publicApi.post(`${authUrl}/verify-otp/${user._id}`, {
-        otp: values.otp.toString(),
+        otp: otp.toString(),
       });
       toast.success("Account verified successfully");
       setRefresh(true);
@@ -28,11 +30,12 @@ const VerificationPage = ({ user, setRefresh }) => {
       toast.error(
         err.error ||
           err.response?.data?.message ||
-          "Something went wrong. Please try again later."
+          "Something went wrong, Please try again later"
       );
     }
   };
 
+  // Resend OTP button active after 1 minute
   const handleResend = async () => {
     setDisableResend(true);
     await publicApi.post(`${authUrl}/send-otp/${user._id}`);

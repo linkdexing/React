@@ -7,8 +7,9 @@ import { publicApi } from "../api";
 import { authUrl, captchaUrl } from "../api/endpoints";
 import PublicHOC from "../components/publicHOC";
 
-export default function login(props) {
+export default function login({ setRefresh, user }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
+  // Recaptcha Verification
   const [verified, setVerified] = useState(false);
 
   const {
@@ -19,6 +20,7 @@ export default function login(props) {
 
   const handleReCaptchaVerify = useCallback(async (token) => {
     try {
+      // verify recaptcha in backend
       const res = await publicApi.post(captchaUrl, { token });
 
       if (res.data.ok) {
@@ -31,6 +33,7 @@ export default function login(props) {
     }
   }, []);
 
+  // values = email, password
   const onSubmit = async (values) => {
     try {
       if (!verified) {
@@ -38,19 +41,24 @@ export default function login(props) {
         return;
       }
 
+      // login page
       const res = await publicApi.post(`${authUrl}/login`, values);
 
-      localStorage.setItem("linkdexing_token", res.data.token);
-      console.log(res.data);
+      // Linkdexing_token
+      localStorage.setItem("jxidwrtdy", res.data.token);
       if (!res.data.verified) {
         return setForm("otp");
       }
-      props.setRefresh(true);
+      setRefresh(true);
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(
+        err.response?.data.message ||
+          "Something went Wrong, Please try again later."
+      );
     }
   };
 
+  // Google Recaptcha v3.0 executing.
   useEffect(() => {
     const run = () => {
       if (!executeRecaptcha) return;
@@ -61,7 +69,7 @@ export default function login(props) {
   }, [executeRecaptcha]);
 
   return (
-    <PublicHOC user={props.user}>
+    <PublicHOC user={user}>
       <div className="container">
         <div className="row">
           <div
@@ -75,11 +83,12 @@ export default function login(props) {
               >
                 <>
                   <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
+                    <label htmlFor="email" className="form-label">
                       Email address
                     </label>
                     <input
                       type="email"
+                      id="email"
                       className="form-control"
                       aria-describedby="emailHelp"
                       {...register("email", {
@@ -89,18 +98,16 @@ export default function login(props) {
                       })}
                     />
                     {errors?.email && (
-                      <span className="text-danger">Incorrect Email.</span>
+                      <span className="text-danger">Incorrect Email</span>
                     )}
                   </div>
                   <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="form-label"
-                    >
+                    <label htmlFor="password" className="form-label">
                       Password
                     </label>
                     <input
                       type="password"
+                      id="password"
                       className="form-control"
                       {...register("password", {
                         required: true,

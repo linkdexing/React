@@ -6,26 +6,29 @@ import { orderUrl } from "../api/endpoints";
 import PrivateHOC from "../components/PrivateHOC";
 import Sidebar from "../components/Sidebar";
 
-export default function HistoryPage(props) {
+// Links-Archive
+export default function LinksArchivePage({ user }) {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      // Get Order History for user
       const { orders } = (await privateApi.get(orderUrl)).data;
 
-      orders.map((order) => {
-        order.isProcessed = moment(order.createdAt)
+      orders.map((order) => ({
+        // After the number of days in dripfeed, isProcessed should be true
+        ...order,
+        isProcessed: moment(order.createdAt)
           .add({ days: order.dripfeed })
           .isBefore(Date.now())
           ? true
-          : false;
+          : false,
 
-        order.links = order.links.split("\n");
+        // Convert Links string to array for counting number of lines
+        links: order.links.split("\n"),
 
-        order.createdAt = moment(order.createdAt).format("DD-MM-yy");
-
-        return order;
-      });
+        createdAt: moment(order.createdAt).format("DD-MM-yy"),
+      }));
 
       setOrders(orders);
     };
@@ -34,17 +37,17 @@ export default function HistoryPage(props) {
   }, []);
 
   return (
-    <PrivateHOC user={props.user}>
-      <div className="container mt-4">
+    <PrivateHOC user={user}>
+      <div className="container mt-2">
         <div className="row">
           <div className="col-sm-12 col-md-9">
-            <h2>Order History</h2>
+            <h2>Links Archive</h2>
 
             <table className="table table-hover table-responsive">
               <thead>
                 <tr>
                   <th scope="col">Dripfeed</th>
-                  <th scope="col"># of links</th>
+                  <th scope="col">Number of links</th>
                   <th scope="col">Links</th>
                   <th scope="col">Created at</th>
                   <th scope="col">Progress</th>
@@ -56,6 +59,7 @@ export default function HistoryPage(props) {
                     <td>{order.dripfeed}</td>
                     <td>{order.links.length}</td>
                     <td>
+                      {/* View links in a new tab */}
                       {order.links.length > 0 ? (
                         <Link href={`/order/${order._id}`}>
                           <a target="_blank">View links</a>

@@ -5,7 +5,8 @@ import { authUrl } from "../api/endpoints";
 import PrivateHOC from "../components/PrivateHOC";
 import Sidebar from "../components/Sidebar";
 
-const ChangePasswordPage = (props) => {
+// After login, change password
+const ChangePasswordPage = ({ user }) => {
   const {
     handleSubmit,
     register,
@@ -13,28 +14,33 @@ const ChangePasswordPage = (props) => {
     watch,
   } = useForm();
 
+  // constantly watches the current value of new password (confirm new password)
   const watchNewPassword = watch("newPassword");
 
-  const onSubmit = async (values) => {
+  const onSubmit = async ({ newPassword, oldPassword }) => {
     try {
+      // change-password
       await privateApi.post(`${authUrl}/change-password`, {
-        newPassword: values.newPassword,
-        oldPassword: values.oldPassword,
+        newPassword,
+        oldPassword,
       });
 
       toast.success("Password changed successfully");
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(
+        err.response?.data.message ||
+          "Something went wrong, Please try again later."
+      );
     }
   };
 
   return (
-    <PrivateHOC user={props.user}>
-      <div className="container">
+    <PrivateHOC user={user}>
+      <div className="container mt-2">
         <div className="row">
-          <div className="col-sm-12 col-md-7 mt-4">
+          <div className="col-sm-12 col-md-9">
             <h2>Change Password</h2>
-            <div className=" card p-3">
+            <div className="card p-3">
               <form
                 className="form-control-sm"
                 onSubmit={handleSubmit(onSubmit)}
@@ -74,7 +80,7 @@ const ChangePasswordPage = (props) => {
                       required: "New password is required",
                       pattern: {
                         value: /^.{5,}$/,
-                        message: "Password too short",
+                        message: "Password is too short",
                       },
                     })}
                   />

@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Footer() {
-  return <div className='footer'>Copyright &copy; Linkdexing</div>;
+  return <div className="footer">Copyright &copy; Linkdexing</div>;
 }
