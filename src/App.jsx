@@ -12,7 +12,6 @@ import DashboardPage from "./pages/DashboardPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import ResetPasswordPage from "./pages/ResetPassword";
 import OrderLinks from "./pages/OrderPage";
-import { ToastContainer } from "react-toastify";
 import { authUrl } from "./api/endpoints";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -20,9 +19,9 @@ import Footer from "./components/footer";
 const PublicRoute = ({ user, setRefresh, component: Component, ...props }) => {
   if (user) {
     if (user.verified) {
-      return <Redirect to='/dashboard' />;
+      return <Redirect to="/dashboard" />;
     } else {
-      return <Redirect to='/verification' />;
+      return <Redirect to="/verification" />;
     }
   }
 
@@ -36,11 +35,11 @@ const PublicRoute = ({ user, setRefresh, component: Component, ...props }) => {
 
 const PrivateRoute = ({ user, setRefresh, component: Component, ...props }) => {
   if (!user) {
-    return <Redirect to='/login' />;
+    return <Redirect to="/login" />;
   }
 
   if (!user.verified) {
-    return <Redirect to='/verification' />;
+    return <Redirect to="/verification" />;
   }
 
   return (
@@ -57,15 +56,21 @@ const VerificationRoute = ({
   component: Component,
   ...props
 }) => {
+  console.log(user);
   if (!user) {
-    return <Redirect to='/login' />;
+    return <Redirect to="/login" />;
   }
 
   if (!user.verified) {
-    return <Redirect to='/verification' />;
+    return (
+      <Route
+        path="/verification"
+        render={() => <Component user={user} setRefresh={setRefresh} />}
+      />
+    );
   }
 
-  return <Redirect to='/dashboard' />;
+  return <Redirect to="/dashboard" />;
 };
 
 const getUser = ({ user, verified }) => ({ ...user, verified });
@@ -116,66 +121,65 @@ const App = () => {
             <Header user={user} setRefresh={setRefresh} />
             <Switch>
               <PrivateRoute
-                path='/order/:id'
+                path="/order/:id"
                 component={OrderLinks}
                 user={user}
                 setRefresh={setRefresh}
               />
               <PublicRoute
-                path='/reset-password'
+                path="/reset-password"
                 component={ResetPasswordPage}
                 user={user}
                 setRefresh={setRefresh}
               />
               <PrivateRoute
-                path='/change-password'
+                path="/change-password"
                 component={ChangePasswordPage}
                 user={user}
                 setRefresh={setRefresh}
               />
               <PrivateRoute
-                path='/dashboard'
+                path="/dashboard"
                 component={DashboardPage}
                 user={user}
                 setRefresh={setRefresh}
               />
               <PublicRoute
-                path='/forgot-password'
+                path="/forgot-password"
                 component={ForgotPasswordPage}
                 user={user}
                 setRefresh={setRefresh}
               />
               <PrivateRoute
-                path='/links-archive'
+                path="/links-archive"
                 component={LinksArchivePage}
                 user={user}
                 setRefresh={setRefresh}
               />
               <VerificationRoute
-                path='/verification'
+                path="/verification"
                 component={VerificationPage}
                 user={user}
                 setRefresh={setRefresh}
               />
               <PublicRoute
-                path='/register'
+                path="/register"
                 component={RegisterPage}
                 user={user}
                 setRefresh={setRefresh}
               />
               <PublicRoute
-                path='/login'
+                path="/login"
                 component={Login}
                 user={user}
                 setRefresh={setRefresh}
               />
-              <PublicRoute path='/' exact component={Home} user={user} />
+              <PublicRoute path="/" exact component={Home} user={user} />
             </Switch>
           </div>
           <Footer />
         </div>
       </BrowserRouter>
-      <ToastContainer />
     </GoogleReCaptchaProvider>
   );
 };

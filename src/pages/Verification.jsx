@@ -23,6 +23,7 @@ const VerificationPage = ({ user, setRefresh }) => {
       toast.success("Account verified successfully");
       setRefresh(true);
     } catch (err) {
+      console.log(err);
       toast.error(
         err.error ||
           err.response?.data?.message ||
@@ -52,23 +53,23 @@ const VerificationPage = ({ user, setRefresh }) => {
 
   return (
     <div>
-      <div className='container mt-4'>
-        <div className='row justify-content-md-center'>
-          <div className='col-xs-12 col-md-6'>
+      <div className="container mt-4">
+        <div className="row justify-content-md-center">
+          <div className="col-xs-12 col-md-6">
             <form
-              className='form-control-sm'
+              className="form-control-sm"
               onSubmit={handleSubmit(onOtpSubmit)}
             >
-              <div className='alert alert-primary' role='alert'>
+              <div className="alert alert-primary" role="alert">
                 We've sent an OTP at your email address
               </div>
-              <div className='mb-3'>
-                <label htmlFor='otp' className='form-label'>
+              <div className="mb-3">
+                <label htmlFor="otp" className="form-label">
                   One-time password
                 </label>
                 <input
-                  type='number'
-                  className='form-control'
+                  type="number"
+                  className="form-control"
                   {...register("otp", {
                     required: true,
                     pattern: {
@@ -78,15 +79,15 @@ const VerificationPage = ({ user, setRefresh }) => {
                   })}
                 />
                 {errors?.otp && (
-                  <span className='text-danger'>{errors.otp.message}</span>
+                  <span className="text-danger">{errors.otp.message}</span>
                 )}
               </div>
-              <button type='submit' className='btn btn-primary w-100'>
+              <button type="submit" className="btn btn-primary w-100">
                 Verify
               </button>
               <button
-                type='button'
-                className='btn btn-link w-100'
+                type="button"
+                className="btn btn-link w-100"
                 onClick={handleResend}
                 disabled={disableResend}
               >
