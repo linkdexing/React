@@ -1,14 +1,14 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { privateApi } from "../../api";
-import { orderUrl } from "../../api/endpoints";
+import { useLocation, useRouteMatch } from "react-router";
+import { privateApi } from "../api";
+import { orderUrl } from "../api/endpoints";
 
 const OrderLinks = () => {
+  const match = useRouteMatch();
+
   const [links, setLinks] = useState([]);
 
-  const router = useRouter();
-
-  const { orderId } = router.query;
+  const { id: orderId } = match.params;
 
   useEffect(() => {
     const fetchData = async () => {

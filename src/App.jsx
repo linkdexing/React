@@ -1,0 +1,183 @@
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { privateApi } from "./api";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import RegisterPage from "./pages/RegisterPage";
+import VerificationPage from "./pages/Verification";
+import LinksArchivePage from "./pages/LinksArchive";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import DashboardPage from "./pages/DashboardPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
+import ResetPasswordPage from "./pages/ResetPassword";
+import OrderLinks from "./pages/OrderPage";
+import { ToastContainer } from "react-toastify";
+import { authUrl } from "./api/endpoints";
+import Header from "./components/header";
+import Footer from "./components/footer";
+
+const PublicRoute = ({ user, setRefresh, component: Component, ...props }) => {
+  if (user) {
+    if (user.verified) {
+      return <Redirect to='/dashboard' />;
+    } else {
+      return <Redirect to='/verification' />;
+    }
+  }
+
+  return (
+    <Route
+      {...props}
+      render={() => <Component user={user} setRefresh={setRefresh} />}
+    />
+  );
+};
+
+const PrivateRoute = ({ user, setRefresh, component: Component, ...props }) => {
+  if (!user) {
+    return <Redirect to='/login' />;
+  }
+
+  if (!user.verified) {
+    return <Redirect to='/verification' />;
+  }
+
+  return (
+    <Route
+      {...props}
+      render={() => <Component user={user} setRefresh={setRefresh} />}
+    />
+  );
+};
+
+const VerificationRoute = ({
+  user,
+  setRefresh,
+  component: Component,
+  ...props
+}) => {
+  if (!user) {
+    return <Redirect to='/login' />;
+  }
+
+  if (!user.verified) {
+    return <Redirect to='/verification' />;
+  }
+
+  return <Redirect to='/dashboard' />;
+};
+
+const getUser = ({ user, verified }) => ({ ...user, verified });
+
+const App = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await privateApi.get(`${authUrl}/isAuthenticated`);
+        if (res.data.ok) {
+          setUser(getUser(res.data));
+          setLoading(false);
+        } else {
+          if (res.data.user) {
+            setUser(getUser(res.data));
+          }
+
+          setLoading(false);
+        }
+      } catch (err) {
+        setLoading(false);
+        setUser(null);
+      }
+    };
+    if (refresh) {
+      fetchUser();
+      setRefresh(false);
+    }
+  }, [refresh]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <GoogleReCaptchaProvider
+      reCaptchaKey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+    >
+      <BrowserRouter>
+        <div>
+          <div
+            style={{ height: "90vh", overflow: "scroll", overflowX: "hidden" }}
+          >
+            <Header user={user} setRefresh={setRefresh} />
+            <Switch>
+              <PrivateRoute
+                path='/order/:id'
+                component={OrderLinks}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <PublicRoute
+                path='/reset-password'
+                component={ResetPasswordPage}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <PrivateRoute
+                path='/change-password'
+                component={ChangePasswordPage}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <PrivateRoute
+                path='/dashboard'
+                component={DashboardPage}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <PublicRoute
+                path='/forgot-password'
+                component={ForgotPasswordPage}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <PrivateRoute
+                path='/links-archive'
+                component={LinksArchivePage}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <VerificationRoute
+                path='/verification'
+                component={VerificationPage}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <PublicRoute
+                path='/register'
+                component={RegisterPage}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <PublicRoute
+                path='/login'
+                component={Login}
+                user={user}
+                setRefresh={setRefresh}
+              />
+              <PublicRoute path='/' exact component={Home} user={user} />
+            </Switch>
+          </div>
+          <Footer />
+        </div>
+      </BrowserRouter>
+      <ToastContainer />
+    </GoogleReCaptchaProvider>
+  );
+};
+
+export default App;
