@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { GoogleReCaptcha, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
@@ -11,6 +12,7 @@ export default function login({ setRefresh, user }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
   // Recaptcha Verification
   const [verified, setVerified] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -46,11 +48,9 @@ export default function login({ setRefresh, user }) {
 
       // Linkdexing_token
       localStorage.setItem("jxidwrtdy", res.data.token);
-      if (!res.data.verified) {
-        return setForm("otp");
-      }
       setRefresh(true);
     } catch (err) {
+      console.log(err);
       toast.error(
         err.response?.data.message ||
           "Something went Wrong, Please try again later."

@@ -68,7 +68,7 @@ const ChangePasswordPage = ({ user }) => {
                   </div>
                 </div>
                 <div className="mb-3">
-                  <label for="newPassword" className="form-label">
+                  <label htmlFor="newPassword" className="form-label">
                     New Password
                   </label>
                   <input
@@ -93,7 +93,7 @@ const ChangePasswordPage = ({ user }) => {
                 </div>
 
                 <div className="mb-3">
-                  <label for="newPasswordConfirm" className="form-label">
+                  <label htmlFor="newPasswordConfirm" className="form-label">
                     Confirm New Password
                   </label>
                   <input

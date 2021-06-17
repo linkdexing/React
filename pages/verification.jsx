@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicApi } from "../api";
 import { authUrl } from "../api/endpoints";
-import PrivateHOC from "../components/PrivateHOC";
 
 const VerificationPage = ({ user, setRefresh }) => {
   // Resend OTP
@@ -25,7 +24,6 @@ const VerificationPage = ({ user, setRefresh }) => {
       });
       toast.success("Account verified successfully");
       setRefresh(true);
-      router.push("/dashboard");
     } catch (err) {
       toast.error(
         err.error ||
@@ -37,16 +35,37 @@ const VerificationPage = ({ user, setRefresh }) => {
 
   // Resend OTP button active after 1 minute
   const handleResend = async () => {
-    setDisableResend(true);
-    await publicApi.post(`${authUrl}/send-otp/${user._id}`);
+    try {
+      setDisableResend(true);
+      await publicApi.post(`${authUrl}/send-otp/${user._id}`);
 
-    setTimeout(() => {
-      setDisableResend(false);
-    }, 60000);
+      toast.info("OTP has been sent again");
+      setTimeout(() => {
+        setDisableResend(false);
+      }, 60000);
+    } catch (err) {
+      toast.error(
+        err.error ||
+          err.response?.data?.message ||
+          "Something went wrong, Please try again later"
+      );
+    }
   };
 
+  useEffect(() => {
+    if (!user) {
+      return router.push("/");
+    }
+
+    if (!user.verified) {
+      router.push("/verification");
+    } else {
+      router.push("/dashboard");
+    }
+  }, [user]);
+
   return (
-    <PrivateHOC user={user}>
+    <div>
       <div className="container mt-4">
         <div className="row justify-content-md-center">
           <div className="col-xs-12 col-md-6">
@@ -91,7 +110,7 @@ const VerificationPage = ({ user, setRefresh }) => {
           </div>
         </div>
       </div>
-    </PrivateHOC>
+    </div>
   );
 };
 
