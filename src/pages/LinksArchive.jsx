@@ -35,19 +35,19 @@ export default function LinksArchivePage() {
   }, []);
 
   return (
-    <div className='container mt-2'>
-      <div className='row'>
-        <div className='col-sm-12 col-md-9'>
+    <div className="container mt-2">
+      <div className="row">
+        <div className="col-sm-12 col-md-9">
           <h2>Links Archive</h2>
 
-          <table className='table table-hover table-responsive'>
+          <table className="table table-hover table-responsive">
             <thead>
               <tr>
-                <th scope='col'>Dripfeed</th>
-                <th scope='col'>Number of links</th>
-                <th scope='col'>Links</th>
-                <th scope='col'>Created at</th>
-                <th scope='col'>Progress</th>
+                <th scope="col">Dripfeed</th>
+                <th scope="col">Number of links</th>
+                <th scope="col">Links</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Progress</th>
               </tr>
             </thead>
             <tbody style={{ whiteSpace: "pre-wrap" }}>
@@ -58,7 +58,7 @@ export default function LinksArchivePage() {
                     <td>{order.links.length}</td>
                     <td>
                       {order.links.length > 0 ? (
-                        <Link target='_blank' to={`/order/${order._id}`}>
+                        <Link target="_blank" to={`/order/${order._id}`}>
                           View links
                         </Link>
                       ) : (

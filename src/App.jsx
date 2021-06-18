@@ -56,7 +56,6 @@ const VerificationRoute = ({
   component: Component,
   ...props
 }) => {
-  console.log(user);
   if (!user) {
     return <Redirect to="/login" />;
   }
@@ -65,6 +64,7 @@ const VerificationRoute = ({
     return (
       <Route
         path="/verification"
+        {...props}
         render={() => <Component user={user} setRefresh={setRefresh} />}
       />
     );

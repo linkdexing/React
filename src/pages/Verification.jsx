@@ -23,7 +23,6 @@ const VerificationPage = ({ user, setRefresh }) => {
       toast.success("Account verified successfully");
       setRefresh(true);
     } catch (err) {
-      console.log(err);
       toast.error(
         err.error ||
           err.response?.data?.message ||

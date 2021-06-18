@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useRouteMatch } from "react-router";
+import { useRouteMatch } from "react-router";
 import { privateApi } from "../api";
 import { orderUrl } from "../api/endpoints";
 
@@ -20,7 +20,7 @@ const OrderLinks = () => {
   });
 
   return (
-    <div className='container mt-4'>
+    <div className="container mt-4">
       <h3>Links</h3>
       <hr />
       {React.Children.toArray(

@@ -29,15 +29,15 @@ const ForgotPasswordPage = () => {
 
   return (
     <div>
-      <form className='container mt-4' onSubmit={handleSubmit(onSubmit)}>
-        <div className='mb-3'>
-          <label for='email' className='form-label'>
+      <form className="container mt-4" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-3">
+          <label for="email" className="form-label">
             Email Address
           </label>
           <input
-            type='email'
-            className='form-control'
-            id='email'
+            type="email"
+            className="form-control"
+            id="email"
             {...register("email", {
               required: "Email address is required",
               pattern: {
@@ -48,11 +48,11 @@ const ForgotPasswordPage = () => {
             })}
           />
           {errors?.email && (
-            <span className='text-danger'>{errors.email.message}</span>
+            <span className="text-danger">{errors.email.message}</span>
           )}
         </div>
 
-        <button type='submit' className='btn btn-primary'>
+        <button type="submit" className="btn btn-primary">
           Submit
         </button>
       </form>
