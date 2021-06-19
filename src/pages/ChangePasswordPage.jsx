@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { privateApi } from "../api";
@@ -13,10 +14,13 @@ const ChangePasswordPage = ({ user }) => {
     watch,
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
+
   // constantly watches the current value of new password (confirm new password)
   const watchNewPassword = watch("newPassword");
 
   const onSubmit = async ({ newPassword, oldPassword }) => {
+    setLoading(true);
     try {
       // change-password
       await privateApi.post(`${authUrl}/change-password`, {
@@ -30,6 +34,8 @@ const ChangePasswordPage = ({ user }) => {
         err.response?.data.message ||
           "Something went wrong, Please try again later."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,6 +53,7 @@ const ChangePasswordPage = ({ user }) => {
                   </label>
                   <input
                     type='password'
+                    disabled={loading}
                     className='form-control'
                     id='oldPassword'
                     aria-describedby='old password'
@@ -68,6 +75,7 @@ const ChangePasswordPage = ({ user }) => {
                 </label>
                 <input
                   type='password'
+                  disabled={loading}
                   className='form-control'
                   id='newPassword'
                   aria-describedby='new password'
@@ -93,6 +101,7 @@ const ChangePasswordPage = ({ user }) => {
                 </label>
                 <input
                   type='password'
+                  disabled={loading}
                   className='form-control'
                   id='newPasswordConfirm'
                   aria-describedby='confirm new password'
@@ -112,8 +121,23 @@ const ChangePasswordPage = ({ user }) => {
               </div>
 
               <div>
-                <button type='submit' className='btn btn-primary btn-lg'>
-                  Change Password
+                <button
+                  type='submit'
+                  className='btn btn-primary btn-lg'
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <span
+                        className='spinner-border spinner-border-sm'
+                        role='status'
+                        aria-hidden='true'
+                      />
+                      <span className='ml-1'>Loading...</span>
+                    </>
+                  ) : (
+                    "Change Password"
+                  )}
                 </button>
               </div>
             </form>

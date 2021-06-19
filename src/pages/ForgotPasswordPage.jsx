@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicApi } from "../api";
@@ -12,8 +12,11 @@ const ForgotPasswordPage = () => {
     formState: { errors },
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
+
   // values = {email}
   const onSubmit = async (values) => {
+    setLoading(true);
     try {
       // forgot-password
       await publicApi.post(`${authUrl}/forgot-password`, values);
@@ -24,20 +27,23 @@ const ForgotPasswordPage = () => {
           err.response?.data.message ||
           "Something went wrong, Please try again later."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
-      <form className="container mt-4" onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-3">
-          <label for="email" className="form-label">
+      <form className='container mt-4' onSubmit={handleSubmit(onSubmit)}>
+        <div className='mb-3'>
+          <label for='email' className='form-label'>
             Email Address
           </label>
           <input
-            type="email"
-            className="form-control"
-            id="email"
+            type='email'
+            disabled={loading}
+            className='form-control'
+            id='email'
             {...register("email", {
               required: "Email address is required",
               pattern: {
@@ -48,12 +54,23 @@ const ForgotPasswordPage = () => {
             })}
           />
           {errors?.email && (
-            <span className="text-danger">{errors.email.message}</span>
+            <span className='text-danger'>{errors.email.message}</span>
           )}
         </div>
 
-        <button type="submit" className="btn btn-primary">
-          Submit
+        <button type='submit' className='btn btn-primary' disabled={loading}>
+          {loading ? (
+            <>
+              <span
+                className='spinner-border spinner-border-sm'
+                role='status'
+                aria-hidden='true'
+              />
+              <span className='ml-1'>Loading...</span>
+            </>
+          ) : (
+            "Submit"
+          )}
         </button>
       </form>
     </div>

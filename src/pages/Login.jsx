@@ -10,6 +10,8 @@ export default function LoginPage({ setRefresh }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [verified, setVerified] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -31,6 +33,7 @@ export default function LoginPage({ setRefresh }) {
   }, []);
 
   const onSubmit = async (values) => {
+    setLoading(true);
     try {
       if (!verified) {
         toast.error("Captcha not verified");
@@ -43,6 +46,8 @@ export default function LoginPage({ setRefresh }) {
       setRefresh(true);
     } catch (err) {
       toast.error(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,6 +76,7 @@ export default function LoginPage({ setRefresh }) {
                   </label>
                   <input
                     type='email'
+                    disabled={loading}
                     className='form-control'
                     aria-describedby='emailHelp'
                     {...register("email", {
@@ -88,6 +94,7 @@ export default function LoginPage({ setRefresh }) {
                     Password
                   </label>
                   <input
+                    disabled={loading}
                     type='password'
                     className='form-control'
                     {...register("password", {
@@ -103,8 +110,23 @@ export default function LoginPage({ setRefresh }) {
 
                 <div>
                   <Link to='/forgot-password'>Forgot Password?</Link>
-                  <button type='submit' className='btn btn-primary w-100'>
-                    Login
+                  <button
+                    type='submit'
+                    className='btn btn-primary w-100'
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <span
+                          className='spinner-border spinner-border-sm'
+                          role='status'
+                          aria-hidden='true'
+                        />
+                        <span className='ml-1'>Loading...</span>
+                      </>
+                    ) : (
+                      "Login"
+                    )}
                   </button>
                 </div>
                 <div>

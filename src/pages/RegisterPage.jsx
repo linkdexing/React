@@ -11,6 +11,8 @@ export default function RegisterPage({ setRefresh, user }) {
   // Google Recaptcha Verification
   const [verified, setVerified] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -36,6 +38,8 @@ export default function RegisterPage({ setRefresh, user }) {
 
   // Values = name, email, password
   const onSubmit = async (values) => {
+    setLoading(true);
+
     try {
       if (!verified) {
         toast.error("Captcha not Verified");
@@ -58,6 +62,8 @@ export default function RegisterPage({ setRefresh, user }) {
         err.response?.data.message ||
           "Something went wrong, Please try again later."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,35 +77,37 @@ export default function RegisterPage({ setRefresh, user }) {
   }, [executeRecaptcha]);
 
   return (
-    <div className="container">
-      <div className="card" style={{ width: 500, marginTop: "6rem" }}>
-        <div className="card-body">
-          <form className="form-control-sm" onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
+    <div className='container'>
+      <div className='card' style={{ width: 500, marginTop: "6rem" }}>
+        <div className='card-body'>
+          <form className='form-control-sm' onSubmit={handleSubmit(onSubmit)}>
+            <div className='mb-3'>
+              <label htmlFor='name' className='form-label'>
                 Name
               </label>
               <input
-                type="text"
-                id="name"
-                className="form-control"
+                disabled={loading}
+                type='text'
+                id='name'
+                className='form-control'
                 {...register("name", { required: true, minLength: 4 })}
               />
               {errors?.name && (
-                <span className="text-danger">
+                <span className='text-danger'>
                   Name should be atleast 5 characters long
                 </span>
               )}
             </div>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
+            <div className='mb-3'>
+              <label htmlFor='email' className='form-label'>
                 Email address
               </label>
               <input
-                type="email"
-                id="email"
-                className="form-control"
-                aria-describedby="emailHelp"
+                disabled={loading}
+                type='email'
+                id='email'
+                className='form-control'
+                aria-describedby='emailHelp'
                 {...register("email", {
                   required: true,
                   pattern:
@@ -107,39 +115,41 @@ export default function RegisterPage({ setRefresh, user }) {
                 })}
               />
               {errors?.email && (
-                <span className="text-danger">Invalid Email format</span>
+                <span className='text-danger'>Invalid Email format</span>
               )}
             </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
+            <div className='mb-3'>
+              <label htmlFor='password' className='form-label'>
                 Password
               </label>
               <input
-                type="password"
-                id="password"
-                className="form-control"
+                disabled={loading}
+                type='password'
+                id='password'
+                className='form-control'
                 {...register("password", {
                   required: true,
                   pattern: /^.{5,}$/,
                 })}
-                aria-describedby="passwordlHelp"
+                aria-describedby='passwordlHelp'
               />
               {errors?.password && (
-                <span className="text-danger">
+                <span className='text-danger'>
                   Password must be atleast 5 characters long
                 </span>
               )}
             </div>
 
-            <div className="mb-3">
-              <label htmlFor="passwordConfirm" className="form-label">
+            <div className='mb-3'>
+              <label htmlFor='passwordConfirm' className='form-label'>
                 Confirm Password
               </label>
               <input
-                type="password"
-                className="form-control"
-                id="passwordConfirm"
-                aria-describedby="Confirm Password"
+                disabled={loading}
+                type='password'
+                className='form-control'
+                id='passwordConfirm'
+                aria-describedby='Confirm Password'
                 {...register("passwordConfirm", {
                   required: "Confirm password is required",
                   validate: (value) =>
@@ -148,7 +158,7 @@ export default function RegisterPage({ setRefresh, user }) {
               />
 
               {errors?.passwordConfirm && (
-                <span className="text-danger">
+                <span className='text-danger'>
                   {errors.passwordConfirm.message}
                 </span>
               )}
@@ -156,11 +166,26 @@ export default function RegisterPage({ setRefresh, user }) {
 
             <GoogleReCaptcha onVerify={handleRecaptchaVerify} />
 
-            <button type="submit" className="btn btn-primary w-100">
-              Register
+            <button
+              type='submit'
+              className='btn btn-primary w-100'
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span
+                    className='spinner-border spinner-border-sm'
+                    role='status'
+                    aria-hidden='true'
+                  />
+                  <span className='ml-1'>Loading...</span>
+                </>
+              ) : (
+                "Register"
+              )}
             </button>
-            <div className="mt-2">
-              <Link to="/login">Already registered? Login</Link>
+            <div className='mt-2'>
+              <Link to='/login'>Already registered? Login</Link>
             </div>
           </form>
         </div>

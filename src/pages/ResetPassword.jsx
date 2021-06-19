@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicApi } from "../api";
@@ -17,11 +18,14 @@ const ResetPasswordPage = ({ history, location }) => {
     formState: { errors },
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
+
   // Constantly watches password
   const watchNewPassword = watch("newPassword");
 
   // values = newPasssword
   const onSubmit = async ({ newPassword }) => {
+    setLoading(true);
     try {
       // reset-password
       await publicApi.post(`${authUrl}/reset-password`, {
@@ -37,6 +41,8 @@ const ResetPasswordPage = ({ history, location }) => {
           err.response?.data.message ||
           "Something went wrong, Please try again later."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,8 +88,19 @@ const ResetPasswordPage = ({ history, location }) => {
             </span>
           )}
         </div>
-        <button type='submit' className='btn btn-primary'>
-          Reset Password
+        <button type='submit' className='btn btn-primary' disabled={loading}>
+          {loading ? (
+            <>
+              <span
+                className='spinner-border spinner-border-sm'
+                role='status'
+                aria-hidden='true'
+              />
+              <span className='ml-1'>Loading...</span>
+            </>
+          ) : (
+            "Reset Password"
+          )}
         </button>
       </form>
     </div>

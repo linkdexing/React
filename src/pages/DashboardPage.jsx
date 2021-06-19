@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { privateApi } from "../api";
@@ -6,6 +7,8 @@ import Sidebar from "../components/Sidebar";
 
 // Dashboard or Home page
 export default function DashboardPage() {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -14,6 +17,7 @@ export default function DashboardPage() {
   } = useForm();
 
   const onSubmit = async (values) => {
+    setLoading(true);
     try {
       //createOrder
       await privateApi.post(`${orderUrl}`, values);
@@ -22,6 +26,8 @@ export default function DashboardPage() {
       reset();
     } catch (err) {
       toast.error("Unable to create order");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,6 +79,7 @@ export default function DashboardPage() {
                   <div className='input-group'>
                     <span className='input-group-text'>Paste Links</span>
                     <textarea
+                      disabled={loading}
                       className='form-control'
                       aria-label='With textarea'
                       {...register("links", {
@@ -89,6 +96,7 @@ export default function DashboardPage() {
                       </span>
                       <input
                         type='number'
+                        disabled={loading}
                         className='form-control'
                         placeholder='        Range of 1 to 30'
                         {...register("dripfeed", {
@@ -106,8 +114,23 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div>
-                  <button type='submit' className='btn btn-primary btn-lg'>
-                    Add Links
+                  <button
+                    type='submit'
+                    disabled={loading}
+                    className='btn btn-primary btn-lg'
+                  >
+                    {loading ? (
+                      <>
+                        <span
+                          className='spinner-border spinner-border-sm'
+                          role='status'
+                          aria-hidden='true'
+                        />
+                        <span className='ml-1'>Adding Links...</span>
+                      </>
+                    ) : (
+                      "Add Links"
+                    )}
                   </button>
                 </div>
               </form>

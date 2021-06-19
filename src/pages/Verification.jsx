@@ -8,6 +8,8 @@ const VerificationPage = ({ user, setRefresh }) => {
   // Resend OTP
   const [disableResend, setDisableResend] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -15,6 +17,7 @@ const VerificationPage = ({ user, setRefresh }) => {
   } = useForm();
 
   const onOtpSubmit = async ({ otp }) => {
+    setLoading(true);
     try {
       // Verify OTP
       await publicApi.post(`${authUrl}/verify-otp/${user._id}`, {
@@ -28,6 +31,8 @@ const VerificationPage = ({ user, setRefresh }) => {
           err.response?.data?.message ||
           "Something went wrong, Please try again later"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,23 +57,24 @@ const VerificationPage = ({ user, setRefresh }) => {
 
   return (
     <div>
-      <div className="container mt-4">
-        <div className="row justify-content-md-center">
-          <div className="col-xs-12 col-md-6">
+      <div className='container mt-4'>
+        <div className='row justify-content-md-center'>
+          <div className='col-xs-12 col-md-6'>
             <form
-              className="form-control-sm"
+              className='form-control-sm'
               onSubmit={handleSubmit(onOtpSubmit)}
             >
-              <div className="alert alert-primary" role="alert">
+              <div className='alert alert-primary' role='alert'>
                 We've sent an OTP at your email address
               </div>
-              <div className="mb-3">
-                <label htmlFor="otp" className="form-label">
+              <div className='mb-3'>
+                <label htmlFor='otp' className='form-label'>
                   One-time password
                 </label>
                 <input
-                  type="number"
-                  className="form-control"
+                  disabled={loading}
+                  type='number'
+                  className='form-control'
                   {...register("otp", {
                     required: true,
                     pattern: {
@@ -78,15 +84,30 @@ const VerificationPage = ({ user, setRefresh }) => {
                   })}
                 />
                 {errors?.otp && (
-                  <span className="text-danger">{errors.otp.message}</span>
+                  <span className='text-danger'>{errors.otp.message}</span>
                 )}
               </div>
-              <button type="submit" className="btn btn-primary w-100">
-                Verify
+              <button
+                type='submit'
+                className='btn btn-primary w-100'
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span
+                      className='spinner-border spinner-border-sm'
+                      role='status'
+                      aria-hidden='true'
+                    />
+                    <span className='ml-1'>Loading...</span>
+                  </>
+                ) : (
+                  "Verify"
+                )}
               </button>
               <button
-                type="button"
-                className="btn btn-link w-100"
+                type='button'
+                className='btn btn-link w-100'
                 onClick={handleResend}
                 disabled={disableResend}
               >
