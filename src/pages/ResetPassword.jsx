@@ -10,8 +10,6 @@ const ResetPasswordPage = ({ history, location }) => {
   const id = params.get("id");
   const token = params.get("token");
 
-  console.log({ id, token });
-
   const {
     register,
     handleSubmit,
