@@ -5,8 +5,12 @@ import { authUrl } from "../api/endpoints";
 
 const ResetPasswordPage = ({ history, location }) => {
   // extracting query params
-  const id = location.search.get("id");
-  const token = location.search.get("token");
+  const params = new URLSearchParams(location.search);
+
+  const id = params.get("id");
+  const token = params.get("token");
+
+  console.log({ id, token });
 
   const {
     register,
