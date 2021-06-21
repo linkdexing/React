@@ -73,7 +73,8 @@ const VerificationPage = ({ user, setRefresh }) => {
               onSubmit={handleSubmit(onOtpSubmit)}
             >
               <div className="alert alert-primary" role="alert">
-                We've sent an OTP at your email address
+                We've sent an OTP at your email address, it is valid for 10
+                minutes.
               </div>
               <div className="mb-3">
                 <label htmlFor="otp" className="form-label">
