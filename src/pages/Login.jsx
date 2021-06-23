@@ -61,24 +61,22 @@ export default function LoginPage({ setRefresh }) {
   }, [executeRecaptcha]);
 
   return (
-    <div className='container'>
-      <div className='row'>
-        <div
-          className='card col-8'
-          style={{ width: 500, marginTop: 130, marginLeft: 20 }}
-        >
-          <div className='card-body'>
-            <form className='form-control-sm' onSubmit={handleSubmit(onSubmit)}>
+    <div className="container">
+      <div className="row">
+        <h1 className="display-6 mt-5">Login</h1>
+        <div className="card col-xs-12 col-md-5 mt-3">
+          <div className="card-body">
+            <form className="form-control-sm" onSubmit={handleSubmit(onSubmit)}>
               <>
-                <div className='mb-3'>
-                  <label htmlFor='exampleInputEmail1' className='form-label'>
+                <div className="mb-3">
+                  <label htmlFor="exampleInputEmail1" className="form-label">
                     Email address
                   </label>
                   <input
-                    type='email'
+                    type="email"
                     disabled={loading}
-                    className='form-control'
-                    aria-describedby='emailHelp'
+                    className="form-control"
+                    aria-describedby="emailHelp"
                     {...register("email", {
                       required: true,
                       pattern:
@@ -86,52 +84,58 @@ export default function LoginPage({ setRefresh }) {
                     })}
                   />
                   {errors?.email && (
-                    <span className='text-danger'>Incorrect Email.</span>
+                    <span className="text-danger">Incorrect Email.</span>
                   )}
                 </div>
-                <div className='mb-3'>
-                  <label htmlFor='exampleInputPassword1' className='form-label'>
+                <div className="mb-3">
+                  <label htmlFor="exampleInputPassword1" className="form-label">
                     Password
                   </label>
                   <input
                     disabled={loading}
-                    type='password'
-                    className='form-control'
+                    type="password"
+                    className="form-control"
                     {...register("password", {
                       required: true,
                     })}
                   />
                   {errors?.password && (
-                    <span className='text-danger'>Incorrect Password.</span>
+                    <span className="text-danger">Incorrect Password.</span>
                   )}
                 </div>
 
                 <GoogleReCaptcha onVerify={handleReCaptchaVerify} />
 
                 <div>
-                  <Link to='/forgot-password'>Forgot Password?</Link>
+                  <Link
+                    to="/forgot-password"
+                    className="d-block mb-1"
+                    style={{ fontSize: "1.1rem" }}
+                  >
+                    Forgot Password?
+                  </Link>
                   <button
-                    type='submit'
-                    className='btn btn-primary w-100'
+                    type="submit"
+                    className="btn btn-primary w-100"
                     disabled={loading}
                   >
                     {loading ? (
                       <>
                         <span
-                          className='spinner-border spinner-border-sm'
-                          role='status'
-                          aria-hidden='true'
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
                         />
-                        <span className='ml-1'>Loading...</span>
+                        <span className="ml-1">Loading...</span>
                       </>
                     ) : (
                       "Login"
                     )}
                   </button>
                 </div>
-                <div>
+                <div className="mt-2" style={{ fontSize: "1.1rem" }}>
                   <span>Not a member? </span>
-                  <Link to='/register'>Register Now</Link>
+                  <Link to="/register">Register Now</Link>
                 </div>
               </>
             </form>

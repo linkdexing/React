@@ -27,10 +27,8 @@ const VerificationPage = ({ user, setRefresh }) => {
 
       // Adding contact to SIB's list
       try {
-        await publicApi.get(`${authUrl}/addContactToSib/${user._id}`);
-      } catch (err) {
-        toast.warning(err.error || err.response?.data.message);
-      }
+        await publicApi.get(`${authUrl}/addContactToSibList/${user._id}`);
+      } catch (err) {}
 
       setRefresh(true);
     } catch (err) {

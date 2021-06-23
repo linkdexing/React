@@ -20,7 +20,7 @@ export default function Header({ setRefresh, user }) {
       <div className="container">
         <span>
           <Link
-            className="container navbar-brand d-flex"
+            className="navbar-brand d-flex"
             to="/"
             style={{ fontSize: "2rem" }}
           >
@@ -75,9 +75,14 @@ export default function Header({ setRefresh, user }) {
                 </button>
               </>
             ) : (
-              <a className="btn btn-outline-success" href="/login">
-                Login
-              </a>
+              <>
+                <Link className="btn btn-outline-success me-3" to="/register">
+                  Register
+                </Link>
+                <Link className="btn btn-primary" to="/login">
+                  Login
+                </Link>
+              </>
             )}
           </>
         </div>
