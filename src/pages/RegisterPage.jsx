@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { publicApi } from "../api";
-import { authUrl, captchaUrl } from "../api/endpoints";
+import { authUrl, captchaUrl, userVariablesUrl } from "../api/endpoints";
 import { GoogleReCaptcha, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { toast } from "react-toastify";
 import { useCallback, useEffect, useState } from "react";
@@ -56,7 +56,7 @@ export default function RegisterPage({ setRefresh, user }) {
 
       try {
         // Sending OTP
-        await publicApi.post(`${authUrl}/send-otp/${data.user._id}`);
+        await publicApi.post(`${userVariablesUrl}/send-otp/${data.user._id}`);
       } catch (err) {}
 
       // Logging in user

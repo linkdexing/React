@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicApi } from "../api";
-import { authUrl } from "../api/endpoints";
+import { userVariablesUrl } from "../api/endpoints";
 
 // At login page, forgot-passsword
 const ForgotPasswordPage = () => {
@@ -19,7 +19,7 @@ const ForgotPasswordPage = () => {
     setLoading(true);
     try {
       // forgot-password
-      await publicApi.post(`${authUrl}/forgot-password`, values);
+      await publicApi.post(`${userVariablesUrl}/forgot-password`, values);
       toast.success("Password reset email sent");
     } catch (err) {
       toast.error(
@@ -34,39 +34,39 @@ const ForgotPasswordPage = () => {
 
   return (
     <div>
-      <form className='container mt-4' onSubmit={handleSubmit(onSubmit)}>
-        <div className='mb-3'>
-          <label for='email' className='form-label'>
+      <form className="container mt-4" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-3">
+          <label for="email" className="form-label">
             Email Address
           </label>
           <input
-            type='email'
+            type="email"
             disabled={loading}
-            className='form-control'
-            id='email'
+            className="form-control"
+            id="email"
             {...register("email", {
               required: "Email address is required",
               pattern: {
                 value:
-                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 message: "Invalid email address",
               },
             })}
           />
           {errors?.email && (
-            <span className='text-danger'>{errors.email.message}</span>
+            <span className="text-danger">{errors.email.message}</span>
           )}
         </div>
 
-        <button type='submit' className='btn btn-primary' disabled={loading}>
+        <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? (
             <>
               <span
-                className='spinner-border spinner-border-sm'
-                role='status'
-                aria-hidden='true'
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
               />
-              <span className='ml-1'>Loading...</span>
+              <span className="ml-1">Loading...</span>
             </>
           ) : (
             "Submit"

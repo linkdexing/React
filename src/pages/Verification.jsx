@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicApi } from "../api";
-import { authUrl } from "../api/endpoints";
+import { authUrl, userVariablesUrl } from "../api/endpoints";
 
 const VerificationPage = ({ user, setRefresh }) => {
   // Resend OTP
@@ -20,7 +20,7 @@ const VerificationPage = ({ user, setRefresh }) => {
     setLoading(true);
     try {
       // Verify OTP
-      await publicApi.post(`${authUrl}/verify-otp/${user._id}`, {
+      await publicApi.post(`${userVariablesUrl}/verify-otp/${user._id}`, {
         otp: otp.toString(),
       });
       toast.success("Account verified successfully");
@@ -46,7 +46,7 @@ const VerificationPage = ({ user, setRefresh }) => {
   const handleResend = async () => {
     try {
       setDisableResend(true);
-      await publicApi.post(`${authUrl}/send-otp/${user._id}`);
+      await publicApi.post(`${userVariablesUrl}/send-otp/${user._id}`);
 
       toast.info("OTP has been sent again");
       setTimeout(() => {
