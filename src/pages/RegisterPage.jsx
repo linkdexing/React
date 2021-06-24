@@ -122,6 +122,10 @@ export default function RegisterPage({ setRefresh, user }) {
                       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                   })}
                 />
+                <div className="form-text">
+                  *OTP for verification will be send to this Email
+                </div>
+
                 {errors?.email && (
                   <span className="text-danger">Invalid Email format</span>
                 )}
