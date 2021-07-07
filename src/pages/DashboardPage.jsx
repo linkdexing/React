@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { privateApi } from "../api";
 import { orderUrl } from "../api/endpoints";
 import Sidebar from "../components/Sidebar";
+// import TopLeftAdv from "../components/TopLeftAdv";
 
 // Dashboard or Home page
 export default function DashboardPage({ user, setRefresh }) {
@@ -39,6 +40,9 @@ export default function DashboardPage({ user, setRefresh }) {
     <div className="container mt-2" style={{ minHeight: "80vh" }}>
       <div className="row">
         <div className="col-sm-12 col-md-9">
+          {/* <div>
+            <TopLeftAdv />
+          </div> */}
           <div
             className="card w-100 my-4"
             style={{ width: 500, marginLeft: 20 }}

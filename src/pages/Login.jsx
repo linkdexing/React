@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { publicApi } from "../api";
 import { authUrl, captchaUrl } from "../api/endpoints";
+// import TopLeftAdv from "../components/TopLeftAdv";
+// import BottomRightAdv from "../components/BottomRightAdv";
 
 export default function LoginPage({ setRefresh }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -63,6 +65,7 @@ export default function LoginPage({ setRefresh }) {
   return (
     <div className="container">
       <div className="row">
+        {/* <TopLeftAdv /> */}
         <h1 className="display-6 mt-5">Login</h1>
         <div className="card col-xs-12 col-md-5 mt-3">
           <div className="card-body">

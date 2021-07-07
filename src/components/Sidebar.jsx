@@ -1,5 +1,6 @@
 import { Children } from "react";
 import { Link } from "react-router-dom";
+// import BottomRightAdv from "../components/BottomRightAdv";
 
 const links = [
   { link: "/", label: "Add Links" },
@@ -9,9 +10,9 @@ const links = [
 
 const Sidebar = () => {
   return (
-    <div className='d-flex col-sm-12 col-md-3 mt-4 justify-content-end'>
+    <div className="d-flex flex-column col-sm-12 col-md-3 mt-4 align-items-center">
       <div>
-        <h1 className='display-6 lead'>Your Account</h1>
+        <h1 className="display-6 lead">Your Account</h1>
         <ul style={{ fontSize: "1.3rem" }}>
           {Children.toArray(
             links.map(({ link, label }) => {
@@ -24,6 +25,9 @@ const Sidebar = () => {
           )}
         </ul>
       </div>
+      {/* <div className="mt-5 ms-5">
+        <BottomRightAdv />
+      </div> */}
     </div>
   );
 };
