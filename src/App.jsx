@@ -13,8 +13,8 @@ import ChangePasswordPage from "./pages/ChangePasswordPage";
 import ResetPasswordPage from "./pages/ResetPassword";
 import OrderLinks from "./pages/OrderPage";
 import { authUrl } from "./api/endpoints";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
 const PublicRoute = ({ user, setRefresh, component: Component, ...props }) => {
   if (user) {

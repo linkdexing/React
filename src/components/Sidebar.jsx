@@ -23,6 +23,9 @@ const Sidebar = () => {
               );
             })
           )}
+          <li>
+            <a href="https://google.com">Get Credits</a>
+          </li>
         </ul>
       </div>
       {/* <div className="mt-5 ms-5">

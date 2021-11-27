@@ -143,7 +143,7 @@ export default function DashboardPage({ user, setRefresh }) {
                     )}
                   </button>
                   <div className="d-flex fs-5 align-items-center">
-                    <div>
+                    {/* <div>
                       Monthly Limit ={" "}
                       <strong className="me-4">
                         {user.userVariables.monthlyLimit}
@@ -153,6 +153,13 @@ export default function DashboardPage({ user, setRefresh }) {
                     <div className="ms-4">
                       Monthly Used ={" "}
                       <strong>{user.userVariables.monthlyUsed}</strong>
+                    </div> */}
+                    <div className="ms-4">
+                      Total Links Remaining ={" "}
+                      <strong>
+                        {user.userVariables.totalLimit -
+                          user.userVariables.totalLinks}
+                      </strong>
                     </div>
                   </div>
                 </div>
