@@ -85,7 +85,7 @@ export default function RegisterPage({ setRefresh, user }) {
   return (
     <div className="container">
       <div className="row">
-        <h1 className="display-6 mt-5">Get Started for Free!</h1>
+        <h1 className="display-6 mt-5">Sign Up Now!</h1>
         <div className="card col-xs-12 col-md-5 mt-3">
           <div className="card-body">
             <form className="form-control-sm" onSubmit={handleSubmit(onSubmit)}>

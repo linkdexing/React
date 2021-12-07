@@ -24,7 +24,7 @@ const Sidebar = () => {
             })
           )}
           <li>
-            <a href="https://linkdexing.com/buy-credit/">Get Credits</a>
+            <a href="https://linkdexing.com/buy-credit/">Buy Credits</a>
           </li>
         </ul>
       </div>
