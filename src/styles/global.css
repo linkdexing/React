@@ -20,3 +20,7 @@ input.form-control {
 textarea.form-control {
   min-height: calc(15em + 0.75rem + 2px);
 }
+
+.nav-link {
+  padding-right: 1.5rem !important;
+}

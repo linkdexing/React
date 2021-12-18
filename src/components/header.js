@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const links = [
   { link: "https://linkdexing.com", label: "Home" },
-  { link: "#", label: "About Us" },
+  { link: "https://linkdexing.com/about/", label: "About Us" },
 ];
 export default function Header({ setRefresh, user }) {
   //Logout Button
@@ -55,6 +55,30 @@ export default function Header({ setRefresh, user }) {
                   </li>
                 );
               })
+            )}
+            {user && (
+              <>
+              <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href="https://linkdexing.com/non-performing-domains/"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      Non Performing Domains
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href="https://linkdexing.freshdesk.com/"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      Helpdesk
+                    </a>
+                  </li>
+              </>
             )}
           </ul>
           <>
