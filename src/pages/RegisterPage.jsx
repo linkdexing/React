@@ -91,7 +91,7 @@ export default function RegisterPage({ setRefresh, user }) {
             <form className="form-control-sm" onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
-                  Name
+                  Username
                 </label>
                 <input
                   disabled={loading}
@@ -102,7 +102,7 @@ export default function RegisterPage({ setRefresh, user }) {
                 />
                 {errors?.name && (
                   <span className="text-danger">
-                    Name should be atleast 5 characters long
+                    Username should be atleast 5 characters long
                   </span>
                 )}
               </div>
