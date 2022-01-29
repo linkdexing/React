@@ -77,7 +77,8 @@ export default function DashboardPage({ user, setRefresh }) {
                         <ul>
                           http://link1.com <br />
                           http://link2.com <br />
-                          https://link3.com
+                          https://link3.com <br />
+                          <em>(Please avoid empty lines before, in-between or after the links)</em>
                         </ul>
                       </div>
                     </div>
