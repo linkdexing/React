@@ -22,7 +22,8 @@ export default function LinksArchivePage() {
           ? true
           : false;
 
-        order.links = order.links.split("\n");
+        //order.links = order.links.split("\n");
+        order.links = order.links.split("\n").filter(link => link.length!==0);
         order.createdAt = moment(order.createdAt).format("DD-MM-yy");
 
         return order;

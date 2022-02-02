@@ -12,7 +12,11 @@ const OrderLinks = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { links } = (await privateApi.get(`${orderUrl}/${orderId}`)).data;
+      let { links } = (await privateApi.get(`${orderUrl}/${orderId}`)).data;
+      
+      console.log(links);
+      // removing empty lines
+      links = links.filter(link => link.length!==0);
       setLinks(links);
     };
 
