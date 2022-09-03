@@ -43,7 +43,9 @@ export default function LinksArchivePage() {
 
           <table className="table table-hover table-responsive">
             <thead>
-              <tr>
+              <tr className="text-center">
+               <th scope="col">S.No</th>
+                <th scope="col">Campaign Name</th>
                 <th scope="col">Dripfeed</th>
                 <th scope="col">Number of links</th>
                 <th scope="col">Links</th>
@@ -53,8 +55,10 @@ export default function LinksArchivePage() {
             </thead>
             <tbody style={{ whiteSpace: "pre-wrap" }}>
               {React.Children.toArray(
-                orders.map((order) => (
-                  <tr className={order.isProcessed ? "table-success" : null}>
+                orders.map((order, index) => (
+                  <tr className={`${order.isProcessed ? "table-success" : null} text-center`}>
+                    <td>{index+1}</td>
+                    <td>{order.name || "N/A"}</td>
                     <td>{order.dripfeed}</td>
                     <td>{order.links.length}</td>
                     <td>

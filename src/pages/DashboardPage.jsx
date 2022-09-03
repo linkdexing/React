@@ -85,6 +85,30 @@ export default function DashboardPage({ user, setRefresh }) {
                 </div>
 
                 <div className="mb-3">
+                  <div className="input-group mb-3">
+                    <div className="input-group mb-1">
+                      <span className="input-group-text">
+                        Campaign Name
+                      </span>
+                      <input
+                        disabled={loading}
+                        className="form-control ps-3"
+                        placeholder="Enter Name (Minimum 3 characters)"
+                        {...register("name", {
+                          required: true,
+                          minLength: 3,
+                        })}
+                      />
+                    </div>
+                    {errors?.name && (
+                      <div className="text-danger">
+                        * Group Name must be greater than 3 characters
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mb-3">
                   <div className="input-group">
                     <span className="input-group-text">Paste Links</span>
                     <textarea
@@ -106,8 +130,8 @@ export default function DashboardPage({ user, setRefresh }) {
                       <input
                         type="number"
                         disabled={loading}
-                        className="form-control"
-                        placeholder="        Range of 1 to 30"
+                        className="form-control ps-3"
+                        placeholder="Range of 1 to 30"
                         {...register("dripfeed", {
                           required: true,
                           max: 30,
